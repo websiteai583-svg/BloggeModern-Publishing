@@ -1,0 +1,25 @@
+{
+	"appId": "io.blogge.app",
+	"appName": "Blogge",
+	"webDir": "dist",
+	"server": {
+		"url": "https://ais-pre-pzbpjh4puhyyswictfxr55-469359533093.asia-southeast1.run.app",
+		"androidScheme": "https",
+		"cleartext": false
+	},
+	"plugins": {
+		"SplashScreen": {
+			"launchShowDuration": 1800,
+			"launchAutoHide": true,
+			"backgroundColor": "#0f172a",
+			"androidSplashResourceName": "splash",
+			"androidScaleType": "CENTER_CROP",
+			"showSpinner": false
+		}
+	},
+	"android": {
+		"allowMixedContent": false,
+		"captureInput": true,
+		"webContentsDebuggingEnabled": false
+	}
+}

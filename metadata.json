@@ -1,0 +1,6 @@
+{
+  "name": "Blogge - Modern Publishing Platform",
+  "description": "A full-featured premium blogging platform with Blogger-style dashboard, rich text editor, AI writing & SEO assistant, theme customizer, analytics, monetization, media manager, and multi-language support.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

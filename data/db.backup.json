@@ -1,0 +1,2386 @@
+{
+  "users": [
+    {
+      "id": "usr_tanvir",
+      "name": "তানভীর আহমেদ (Tanvir Ahmed)",
+      "email": "tanvir@blogge.io",
+      "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
+      "bio": "টেক উদ্যোক্তা, ফুল-স্ট্যাক ডেভেলপার ও কন্টেন্ট ক্রিয়েটর। বাংলা ভাষায় আধুনিক প্রযুক্তির বিস্তার ঘটাতে ভালোবাসি।",
+      "role": "editor",
+      "twoFactorEnabled": true,
+      "joinedAt": "2025-01-15",
+      "socialLinks": {
+        "twitter": "https://twitter.com",
+        "github": "https://github.com",
+        "facebook": "https://facebook.com",
+        "website": "https://blogge.io",
+        "linkedin": ""
+      },
+      "salt": "280c3c159add83eddbc5961fa3448535",
+      "passwordHash": "e9465d07995bd3007586f0941cfec802fb47d74fb267cfc79e219611b3e8fcc1",
+      "username": "admin",
+      "avatarUrl": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
+      "profileImageUrl": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
+      "website": "https://blogge.io",
+      "tokenVersion": 0
+    },
+    {
+      "id": "usr_editor",
+      "name": "নুসরাত জাহান (Nusrat Jahan)",
+      "email": "nusrat@blogge.io",
+      "avatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80",
+      "bio": "প্রযুক্তি সাংবাদিক ও সাহিত্যপ্রেমী। এআই ও ভবিষ্যৎ টেকনোলজি নিয়ে নিয়মিত কলাম লেখেন।",
+      "role": "editor",
+      "twoFactorEnabled": false,
+      "joinedAt": "2025-02-10",
+      "salt": "f88d7184b890d8eeec601d752cf1a1b1",
+      "passwordHash": "e04291e7b3f9be3f784c7a3d86a06981faa4198e22409e4f14bc34fe25b06d5b",
+      "tokenVersion": 0
+    },
+    {
+      "id": "usr_author",
+      "name": "রাফিদ হাসান (Rafid Hasan)",
+      "email": "rafid@blogge.io",
+      "avatar": "https://api.dicebear.com/7.x/bottts/svg?seed=%E0%A6%B0%E0%A6%BE%E0%A6%AB%E0%A6%BF%E0%A6%A6%20%E0%A6%B9%E0%A6%BE%E0%A6%B8%E0%A6%BE%E0%A6%A8%20(Rafid%20Hasan)",
+      "bio": "সফটওয়্যার আর্কিটেক্ট ও ওপেন-সোর্স কন্ট্রিবিউটর।",
+      "role": "author",
+      "twoFactorEnabled": false,
+      "joinedAt": "2025-03-01",
+      "salt": "f8d3e930a65606be204497861fc1ca92",
+      "passwordHash": "889731a001203dd07a0e1f457af6bcebff001b51a3300e605aaf446ad1f22037",
+      "avatarUrl": "https://api.dicebear.com/7.x/bottts/svg?seed=%E0%A6%B0%E0%A6%BE%E0%A6%AB%E0%A6%BF%E0%A6%A6%20%E0%A6%B9%E0%A6%BE%E0%A6%B8%E0%A6%BE%E0%A6%A8%20(Rafid%20Hasan)",
+      "profileImageUrl": "https://api.dicebear.com/7.x/bottts/svg?seed=%E0%A6%B0%E0%A6%BE%E0%A6%AB%E0%A6%BF%E0%A6%A6%20%E0%A6%B9%E0%A6%BE%E0%A6%B8%E0%A6%BE%E0%A6%A8%20(Rafid%20Hasan)",
+      "tokenVersion": 0
+    },
+    {
+      "id": "usr_1787561633296",
+      "name": "Sohelmolla admin",
+      "email": "websiteai583@gmail.com",
+      "avatar": "/uploads/avatars/avatar_usr_1787561633296_1787822502702.jpg",
+      "avatarUrl": "/uploads/avatars/avatar_usr_1787561633296_1787822502702.jpg",
+      "profileImageUrl": "/uploads/avatars/avatar_usr_1787561633296_1787822502702.jpg",
+      "bio": "Blogger platform member & passionate reader.",
+      "role": "admin",
+      "status": "active",
+      "twoFactorEnabled": false,
+      "salt": "e011303bd88d94f1a6bf537c1382182d",
+      "passwordHash": "635486a3091636848f3abe4b2af843698e863821c5efe05c05534dbd7a44533e",
+      "joinedAt": "2026-08-24",
+      "username": "websiteai583",
+      "website": "",
+      "socialLinks": {
+        "twitter": "",
+        "github": "",
+        "facebook": "",
+        "linkedin": "",
+        "website": ""
+      },
+      "tokenVersion": 0
+    },
+    {
+      "id": "usr_1787564234858",
+      "name": "Test Reader",
+      "email": "reader_test_1787564234727@example.com",
+      "avatar": "https://api.dicebear.com/7.x/bottts/svg?seed=Test%20Reader",
+      "avatarUrl": "https://api.dicebear.com/7.x/bottts/svg?seed=Test%20Reader",
+      "profileImageUrl": "https://api.dicebear.com/7.x/bottts/svg?seed=Test%20Reader",
+      "bio": "Blogger platform member & passionate reader.",
+      "role": "reader",
+      "status": "active",
+      "twoFactorEnabled": false,
+      "salt": "021dec3e2e8399ffb37fcc079970d383",
+      "passwordHash": "d9c1c1914dd56a4afd1dfee60449aa1e50a3ef167505e3a3f140e92ce35c3ed7",
+      "joinedAt": "2026-08-24",
+      "tokenVersion": 0
+    },
+    {
+      "id": "usr_1787583440502",
+      "name": "Audit User",
+      "email": "audituser_new@example.com",
+      "avatar": "https://api.dicebear.com/7.x/bottts/svg?seed=Audit%20User",
+      "avatarUrl": "https://api.dicebear.com/7.x/bottts/svg?seed=Audit%20User",
+      "profileImageUrl": "https://api.dicebear.com/7.x/bottts/svg?seed=Audit%20User",
+      "bio": "Blogger platform member & passionate reader.",
+      "role": "reader",
+      "status": "active",
+      "twoFactorEnabled": false,
+      "salt": "02bbc1e216bdc88540b3791d12945230",
+      "passwordHash": "a0720f7fd9e4bdcb7b25b4f4485857c13bc608e263b00ac334d28f5786016b96",
+      "joinedAt": "2026-08-24",
+      "tokenVersion": 0
+    },
+    {
+      "id": "usr_1788020431563",
+      "name": "Test Author",
+      "email": "author_test@example.com",
+      "avatar": "https://api.dicebear.com/7.x/bottts/svg?seed=Test%20Author",
+      "avatarUrl": "https://api.dicebear.com/7.x/bottts/svg?seed=Test%20Author",
+      "profileImageUrl": "https://api.dicebear.com/7.x/bottts/svg?seed=Test%20Author",
+      "bio": "Blogger platform member & passionate reader.",
+      "role": "reader",
+      "status": "active",
+      "twoFactorEnabled": false,
+      "salt": "14f620c3371b541acc970f191c3f7feaa26eba5d2979052256b01fff17b756c0",
+      "passwordHash": "pbkdf2_sha512$100000$4712c82f695e7e1d72a78f191bc986493d7544b2f1e38875e6f20060cadc252ed5746fe36135eb64a2d3eb5d5b50496e87fffb71c4e506afc39ce1ee5a38885f",
+      "joinedAt": "2026-08-29",
+      "tokenVersion": 0
+    },
+    {
+      "id": "usr_1788109286702",
+      "name": "Integration Author",
+      "email": "integration_author_1788109286609@example.com",
+      "avatar": "https://api.dicebear.com/7.x/bottts/svg?seed=Integration%20Author",
+      "avatarUrl": "https://api.dicebear.com/7.x/bottts/svg?seed=Integration%20Author",
+      "profileImageUrl": "https://api.dicebear.com/7.x/bottts/svg?seed=Integration%20Author",
+      "bio": "New Blogge platform community member.",
+      "role": "author",
+      "status": "active",
+      "twoFactorEnabled": false,
+      "tokenVersion": 1,
+      "salt": "54fcc9325fb660de7235e696ed2974242e66198d9e57ff5e4e395b0396fe2266",
+      "passwordHash": "pbkdf2_sha512$100000$b1c5528b8c4a170f8da6bb60a62a80e18ae58c1aea93093426f192ed34d1306ad8437f6ba11944d244b605f17e508633e8deb76d08916cf25b112a730fd74a8a",
+      "joinedAt": "2026-08-30",
+      "resetTokenHash": null,
+      "resetTokenExpiry": null,
+      "resetTokenUsed": true,
+      "passwordChangedAt": "2026-08-30T17:01:26.996Z"
+    },
+    {
+      "id": "usr_1788109371387",
+      "name": "Integration Author",
+      "email": "integration_author_1788109371300@example.com",
+      "avatar": "https://api.dicebear.com/7.x/bottts/svg?seed=Integration%20Author",
+      "avatarUrl": "https://api.dicebear.com/7.x/bottts/svg?seed=Integration%20Author",
+      "profileImageUrl": "https://api.dicebear.com/7.x/bottts/svg?seed=Integration%20Author",
+      "bio": "New Blogge platform community member.",
+      "role": "author",
+      "status": "active",
+      "twoFactorEnabled": false,
+      "tokenVersion": 1,
+      "salt": "fc49d2cdbeb81de8fa592c199e3d815f3b195f4e7120dc9227f1af3e9549f53c",
+      "passwordHash": "pbkdf2_sha512$100000$fce4a01352eae52baccf6f3c13a7e77c847365780bf12d6b5423fa2b32b533b4564127a5321f4782f3bb52a5dcaf50a08ac638077929a8d744d4ca8f2f8e44df",
+      "joinedAt": "2026-08-30",
+      "resetTokenHash": null,
+      "resetTokenExpiry": null,
+      "resetTokenUsed": true,
+      "passwordChangedAt": "2026-08-30T17:02:51.690Z"
+    },
+    {
+      "id": "usr_reader_test",
+      "name": "Reader Only",
+      "email": "reader_test@blogge.io",
+      "role": "reader",
+      "status": "active",
+      "tokenVersion": 0,
+      "salt": "d82d555773f0766055002251b029baf8a915396115ddb59dee5d0464a05937db",
+      "passwordHash": "pbkdf2_sha512$100000$50dfdbf9451293b44ce764af7009f3763646d6c8ce5d70db769c6e0c120de97aa984b3d8d9df694b016010446b4344581c35af052d4ba130d2e874bb08260699"
+    },
+    {
+      "id": "usr_1788109438967",
+      "name": "Integration Author",
+      "email": "integration_author_1788109438876@example.com",
+      "avatar": "https://api.dicebear.com/7.x/bottts/svg?seed=Integration%20Author",
+      "avatarUrl": "https://api.dicebear.com/7.x/bottts/svg?seed=Integration%20Author",
+      "profileImageUrl": "https://api.dicebear.com/7.x/bottts/svg?seed=Integration%20Author",
+      "bio": "New Blogge platform community member.",
+      "role": "author",
+      "status": "active",
+      "twoFactorEnabled": false,
+      "tokenVersion": 1,
+      "salt": "966f7ad705317638cfb803cf9db5106c25dcbf9f4692a664afd8d29b8ad6fcfd",
+      "passwordHash": "pbkdf2_sha512$100000$81122b72028b4c160ba1c4ebbbc71487fa04cc1136b0f3cd0c63e5145a5334ea55f3eb021b95683b660d95b23390be509b79924ff0ff51fdb6dbe233178ea78e",
+      "joinedAt": "2026-08-30",
+      "resetTokenHash": null,
+      "resetTokenExpiry": null,
+      "resetTokenUsed": true,
+      "passwordChangedAt": "2026-08-30T17:03:59.240Z"
+    },
+    {
+      "id": "usr_reader_test",
+      "name": "Reader Only",
+      "email": "reader_test@blogge.io",
+      "role": "reader",
+      "status": "active",
+      "tokenVersion": 0,
+      "salt": "1f4ee96e3004ad2cdc63260dd19ee4f408030e3b4f99406862f286258d91e734",
+      "passwordHash": "pbkdf2_sha512$100000$3f0ed5736ed98717cdf65888f6620dfe01c602fc7f475c86c3b2487fd12d16630b9e8ef0410f415e77f797160ef02e033c1adfb5905bcc4e9bf37f62ab522803"
+    },
+    {
+      "id": "usr_1788109517673",
+      "name": "Integration Author",
+      "email": "integration_author_1788109517588@example.com",
+      "avatar": "https://api.dicebear.com/7.x/bottts/svg?seed=Integration%20Author",
+      "avatarUrl": "https://api.dicebear.com/7.x/bottts/svg?seed=Integration%20Author",
+      "profileImageUrl": "https://api.dicebear.com/7.x/bottts/svg?seed=Integration%20Author",
+      "bio": "New Blogge platform community member.",
+      "role": "author",
+      "status": "active",
+      "twoFactorEnabled": false,
+      "tokenVersion": 1,
+      "salt": "3d6ac13fa434ae30c3b54c900b7fee21093018e03d872e43d9099f0516314fe2",
+      "passwordHash": "pbkdf2_sha512$100000$7da754b7ca30ce178fd8ea4767cd92ec074dbf001b72eb6a74e3c5fb1bb8a9a0122958a6a9f16dd1ffd32bcdbd88b76179a2549da11d5a9731e663ead7e9db1a",
+      "joinedAt": "2026-08-30",
+      "resetTokenHash": null,
+      "resetTokenExpiry": null,
+      "resetTokenUsed": true,
+      "passwordChangedAt": "2026-08-30T17:05:17.936Z"
+    },
+    {
+      "id": "usr_reader_test",
+      "name": "Reader Only",
+      "email": "reader_test@blogge.io",
+      "role": "reader",
+      "status": "active",
+      "tokenVersion": 0,
+      "salt": "af2fe6f2fa22ae7c94c65ab5e61c62c20e087a0ff61d45ccdcd6cee88640095c",
+      "passwordHash": "pbkdf2_sha512$100000$596f79d05487208fdc4a987dcc198ba7d33574d642e59b0c9c46ef9480a81dbea9665a5f1bd0b02c7dd7ea1a4ecd293a5076d52edb8b863d385cccb3053b4d78"
+    },
+    {
+      "id": "usr_1788109550298",
+      "name": "Integration Author",
+      "email": "integration_author_1788109550206@example.com",
+      "avatar": "https://api.dicebear.com/7.x/bottts/svg?seed=Integration%20Author",
+      "avatarUrl": "https://api.dicebear.com/7.x/bottts/svg?seed=Integration%20Author",
+      "profileImageUrl": "https://api.dicebear.com/7.x/bottts/svg?seed=Integration%20Author",
+      "bio": "New Blogge platform community member.",
+      "role": "author",
+      "status": "active",
+      "twoFactorEnabled": false,
+      "tokenVersion": 1,
+      "salt": "a73e7c583501566e22d3921003ebd7858fcaaccd62c9d06e04599c5389c02bec",
+      "passwordHash": "pbkdf2_sha512$100000$6f7cfa2a1dcfffc525b76ede42326693832f1ae147d745e4ea5f3048df11eaf18afcc8fbe7594bc52c48deabde818befc3ffa680fcbf5f7a7b7da95b4cccc0ff",
+      "joinedAt": "2026-08-30",
+      "resetTokenHash": null,
+      "resetTokenExpiry": null,
+      "resetTokenUsed": true,
+      "passwordChangedAt": "2026-08-30T17:05:50.572Z"
+    },
+    {
+      "id": "usr_reader_test",
+      "name": "Reader Only",
+      "email": "reader_test@blogge.io",
+      "role": "reader",
+      "status": "active",
+      "tokenVersion": 0,
+      "salt": "18fe491beb286769218ef5432756b7b0350b2bd3ce52c52afaebc329dd4fbf64",
+      "passwordHash": "pbkdf2_sha512$100000$71014bb0769641c5da4c74409a99cefd24c0ff904ed01fd1137a7e880c6c1325161463272f6ea8f6a1e9bf6eb3888c77e58dc477f3f67ad7443a7e8071d5c746"
+    },
+    {
+      "id": "usr_1788109594369",
+      "name": "Integration Author",
+      "email": "integration_author_1788109594278@example.com",
+      "avatar": "https://api.dicebear.com/7.x/bottts/svg?seed=Integration%20Author",
+      "avatarUrl": "https://api.dicebear.com/7.x/bottts/svg?seed=Integration%20Author",
+      "profileImageUrl": "https://api.dicebear.com/7.x/bottts/svg?seed=Integration%20Author",
+      "bio": "New Blogge platform community member.",
+      "role": "author",
+      "status": "active",
+      "twoFactorEnabled": false,
+      "tokenVersion": 1,
+      "salt": "a213914971ef1d5478c6fa5c17e0ef05cb7bdded9da79175037916ba836def63",
+      "passwordHash": "pbkdf2_sha512$100000$bfdeefba0c87f2a28c85357f31bafc4a0deb30d162305ccdd9739a355151a3e2c6bdf28db826cc6e01687511c0c6beafedc43f13c1b5a57e35e731ff5297f5b8",
+      "joinedAt": "2026-08-30",
+      "resetTokenHash": null,
+      "resetTokenExpiry": null,
+      "resetTokenUsed": true,
+      "passwordChangedAt": "2026-08-30T17:06:34.620Z"
+    },
+    {
+      "id": "usr_reader_test",
+      "name": "Reader Only",
+      "email": "reader_test@blogge.io",
+      "role": "reader",
+      "status": "active",
+      "tokenVersion": 0,
+      "salt": "858cd42dfc6807a31dd15bc29cf6096d00429ccb2adc1c877d356920d40ac0c3",
+      "passwordHash": "pbkdf2_sha512$100000$4dc6694fe8d82468e6c914c5f4c4ccf8d9ba74f181d14551b9f567af1e459d4aeded7447a6279eb49f6abc7b9ec11792d62bb9e0512cab7b487bb87ece9195a1"
+    },
+    {
+      "id": "usr_1788109604531",
+      "name": "Integration Author",
+      "email": "integration_author_1788109604445@example.com",
+      "avatar": "https://api.dicebear.com/7.x/bottts/svg?seed=Integration%20Author",
+      "avatarUrl": "https://api.dicebear.com/7.x/bottts/svg?seed=Integration%20Author",
+      "profileImageUrl": "https://api.dicebear.com/7.x/bottts/svg?seed=Integration%20Author",
+      "bio": "New Blogge platform community member.",
+      "role": "author",
+      "status": "active",
+      "twoFactorEnabled": false,
+      "tokenVersion": 1,
+      "salt": "aa297bbad59d18031cc3a285f1cd3ced2a42797bca8cb8485103d56d5bb24a94",
+      "passwordHash": "pbkdf2_sha512$100000$feb554271cd54686d66209cf608d97246407e078f1875afd75e63749d908eca4057ada3edd136f9b16dd316feebd29b8265dce9d476a9f0358b07e9daf31fa4e",
+      "joinedAt": "2026-08-30",
+      "resetTokenHash": null,
+      "resetTokenExpiry": null,
+      "resetTokenUsed": true,
+      "passwordChangedAt": "2026-08-30T17:06:44.786Z"
+    },
+    {
+      "id": "usr_reader_test",
+      "name": "Reader Only",
+      "email": "reader_test@blogge.io",
+      "role": "reader",
+      "status": "active",
+      "tokenVersion": 0,
+      "salt": "6f4a85281e40796917db5d3eac16530e74a31c25d13ecbb4f18a01fad9258729",
+      "passwordHash": "pbkdf2_sha512$100000$f4d60168bbdc580440259cbb8b65f77acb17f154051e09b384ae3ec99c4ba21248b3f2a1e5fbd9ff96e4e88f0aa1b4f1d980eb308a1507b19783bd6905f79ca9"
+    },
+    {
+      "id": "usr_1788109630209",
+      "name": "Integration Author",
+      "email": "integration_author_1788109630116@example.com",
+      "avatar": "https://api.dicebear.com/7.x/bottts/svg?seed=Integration%20Author",
+      "avatarUrl": "https://api.dicebear.com/7.x/bottts/svg?seed=Integration%20Author",
+      "profileImageUrl": "https://api.dicebear.com/7.x/bottts/svg?seed=Integration%20Author",
+      "bio": "New Blogge platform community member.",
+      "role": "author",
+      "status": "active",
+      "twoFactorEnabled": false,
+      "tokenVersion": 1,
+      "salt": "205443518335a686273c5c042bc6484d7c9666223ff96c2168ce4a106da2c0ed",
+      "passwordHash": "pbkdf2_sha512$100000$91a2e684e4fd06fef9117fe93cb42f0bc514dae86e8cd3636662cf3203ceeed8607884e89cfadc907da8145058f1f9160238da3c38f43e75dcade1de717539b4",
+      "joinedAt": "2026-08-30",
+      "resetTokenHash": null,
+      "resetTokenExpiry": null,
+      "resetTokenUsed": true,
+      "passwordChangedAt": "2026-08-30T17:07:10.458Z"
+    },
+    {
+      "id": "usr_reader_test",
+      "name": "Reader Only",
+      "email": "reader_test@blogge.io",
+      "role": "reader",
+      "status": "active",
+      "tokenVersion": 0,
+      "salt": "580308587e2bf649063676d4b082ab8f29c86824f610f7a46233da87b8d03f4e",
+      "passwordHash": "pbkdf2_sha512$100000$4bdbffc3d7481bfe2a03db2c614a8b560f8f320f17040a42ded9f80a49da4c2c3f40122879ab51469a1ee215b74875f541a2dba62511e51720a3a95b81e23c7f"
+    },
+    {
+      "id": "usr_1788109663550",
+      "name": "Integration Author",
+      "email": "integration_author_1788109663461@example.com",
+      "avatar": "https://api.dicebear.com/7.x/bottts/svg?seed=Integration%20Author",
+      "avatarUrl": "https://api.dicebear.com/7.x/bottts/svg?seed=Integration%20Author",
+      "profileImageUrl": "https://api.dicebear.com/7.x/bottts/svg?seed=Integration%20Author",
+      "bio": "New Blogge platform community member.",
+      "role": "author",
+      "status": "active",
+      "twoFactorEnabled": false,
+      "tokenVersion": 1,
+      "salt": "4aebf9ec916d635a5a0256ea8d602478a78429358f128da410cad30391a65270",
+      "passwordHash": "pbkdf2_sha512$100000$43c634e35711f61089fa3611d8eafc8d7c3ba9082f9d9629781914037ff0ceb1d8c5db99147bbaa2055393d3acbc998e22114e6433a9b58a476fae131fbf8feb",
+      "joinedAt": "2026-08-30",
+      "resetTokenHash": null,
+      "resetTokenExpiry": null,
+      "resetTokenUsed": true,
+      "passwordChangedAt": "2026-08-30T17:07:43.793Z"
+    },
+    {
+      "id": "usr_reader_test",
+      "name": "Reader Only",
+      "email": "reader_test@blogge.io",
+      "role": "reader",
+      "status": "active",
+      "tokenVersion": 0,
+      "salt": "6bb3c6f866ac3f7bcbb97719102a8f3c5cf7d79543b95337789fc864774a25df",
+      "passwordHash": "pbkdf2_sha512$100000$c6794088738020db43796be6797a3beae592605f7f7fe81c6e7471e5a3b59b4236c38c098bee25e4ef5a0d9f6a78e7a184cefc2dca89ee30ae8c4d7386ff33f9"
+    },
+    {
+      "id": "usr_1788109887426",
+      "name": "Integration Author",
+      "email": "integration_author_1788109887332@example.com",
+      "avatar": "https://api.dicebear.com/7.x/bottts/svg?seed=Integration%20Author",
+      "avatarUrl": "https://api.dicebear.com/7.x/bottts/svg?seed=Integration%20Author",
+      "profileImageUrl": "https://api.dicebear.com/7.x/bottts/svg?seed=Integration%20Author",
+      "bio": "New Blogge platform community member.",
+      "role": "author",
+      "status": "active",
+      "twoFactorEnabled": false,
+      "tokenVersion": 1,
+      "salt": "05d981de3b0f6a623b22816697c006ab3093a2e40047cc8f616af10b0070ce36",
+      "passwordHash": "pbkdf2_sha512$100000$fc8e0601878ce26d9e4b1afae6bcac010874e75f8615aaa8c4930e0f39e6a8ba73ba41ed55bf2c095b0ee37a982abab033c79e6ce439aad2a8fd5c8254c3f1da",
+      "joinedAt": "2026-08-30",
+      "resetTokenHash": null,
+      "resetTokenExpiry": null,
+      "resetTokenUsed": true,
+      "passwordChangedAt": "2026-08-30T17:11:27.670Z"
+    },
+    {
+      "id": "usr_reader_test",
+      "name": "Reader Only",
+      "email": "reader_test@blogge.io",
+      "role": "reader",
+      "status": "active",
+      "tokenVersion": 0,
+      "salt": "503a8b2cc5b4c08c9c895d0a61da7ca125c426de5d4841337840376aa7bce319",
+      "passwordHash": "pbkdf2_sha512$100000$dd8d905babf42492980814fb64299ce8c9f1c50b3b2167a576ce3cfda794ef9a8b3fb0048ec1ba5d1dbc23d45747f3892b46da9a1a52a838f7ba6bf2ee051a54"
+    },
+    {
+      "id": "usr_1788161876505",
+      "name": "Integration Author",
+      "email": "integration_author_1788161876418@example.com",
+      "avatar": "https://api.dicebear.com/7.x/bottts/svg?seed=Integration%20Author",
+      "avatarUrl": "https://api.dicebear.com/7.x/bottts/svg?seed=Integration%20Author",
+      "profileImageUrl": "https://api.dicebear.com/7.x/bottts/svg?seed=Integration%20Author",
+      "bio": "New Blogge platform community member.",
+      "role": "author",
+      "status": "active",
+      "twoFactorEnabled": false,
+      "tokenVersion": 1,
+      "salt": "96e012cd92754402d673b2fd51f63b474ea6b5a5978a6a5bfb4b3898a79f917c",
+      "passwordHash": "pbkdf2_sha512$100000$d31a250b1f9e3cbbb73717c2ba91dbead98d66e836abebbffa9f5681c67c95a2b85ff1f6ba2cf5b36ef53391c3ccf1fb84e499163fd5c247204a571bfeca5f88",
+      "joinedAt": "2026-08-31",
+      "resetTokenHash": null,
+      "resetTokenExpiry": null,
+      "resetTokenUsed": true,
+      "passwordChangedAt": "2026-08-31T07:37:56.743Z"
+    },
+    {
+      "id": "usr_reader_test",
+      "name": "Reader Only",
+      "email": "reader_test@blogge.io",
+      "role": "reader",
+      "status": "active",
+      "tokenVersion": 0
+    }
+  ],
+  "posts": [
+    {
+      "id": "post_1",
+      "title": "২০২৬ সালে কৃত্রিম বুদ্ধিমত্তা ও জেনারেটিভ এআই বিপ্লব: বাংলা কন্টেন্ট ক্রিয়েটরদের নতুন দিগন্ত",
+      "slug": "ai-revolution-and-bangla-content-creators-2026",
+      "summary": "কৃত্রিম বুদ্ধিমত্তা কীভাবে বাংলা ব্লগিং, কনটেন্ট তৈরি ও এসইও অপটিমাইজেশনে বৈপ্লবিক পরিবর্তন এনেছে এবং ক্রিয়েটররা কীভাবে লাভবান হতে পারেন।",
+      "content": "\n      <p class=\"lead font-medium text-lg mb-4\">কৃত্রিম বুদ্ধিমত্তা (AI) এখন আর কেবল ভবিষ্যতের কল্পনা নয়, বরং বর্তমান ডিজিটাল দুনিয়ার সবচেয়ে শক্তিশালী ইঞ্জিন। ২০২৬ সালে এসে আমরা দেখছি কীভাবে এলএলএম ও জেনারেটিভ এআই কন্টেন্ট ক্রিয়েশনকে কয়েক গুণ দ্রুত ও নিখুঁত করে তুলেছে।</p>\n      \n      <h2 class=\"text-2xl font-bold mt-6 mb-3\">বাংলা ভাষায় এআই এর অভূতপূর্ব উন্নয়ন</h2>\n      <p class=\"mb-4\">পূর্বে বাংলা ভাষার ক্ষেত্রে ন্যাচারাল ল্যাঙ্গুয়েজ প্রসেসিং (NLP) কিছুটা পিছিয়ে থাকলেও জেমিনি এবং আধুনিক এআই মডেলগুলোর কল্যাণে বাংলা ব্যাকরণ, সাহিত্যরস ও প্রাঞ্জল অনুবাদ এখন মানুষের লেখার সমতুল্য হয়ে উঠেছে।</p>\n      \n      <div class=\"p-4 my-6 bg-blue-50 dark:bg-blue-950/40 border-l-4 border-blue-600 rounded-r-lg\">\n        <h4 class=\"font-bold text-blue-900 dark:text-blue-200\">মূল পর্যবেক্ষণ:</h4>\n        <p class=\"text-sm text-blue-800 dark:text-blue-300\">সঠিক প্রম্পট ইঞ্জিনিয়ারিং জানা থাকলে একটি সাধারণ ধারণাকে মাত্র কয়েক সেকেন্ডে পূর্ণাঙ্গ ও গবেষণাভিত্তিক আর্টিকেলে রূপান্তর করা সম্ভব।</p>\n      </div>\n\n      <h2 class=\"text-2xl font-bold mt-6 mb-3\">কন্টেন্ট ক্রিয়েটরদের জন্য ৫টি সেরা কৌশল</h2>\n      <ol class=\"list-decimal pl-6 space-y-2 mb-6\">\n        <li><strong>এআই আউটলাইন তৈরি:</strong> লেখার শুরুতে বিস্তারিত স্ট্রাকচার তৈরি করে নেওয়া।</li>\n        <li><strong>রিয়েল-টাইম ফ্যাক্ট চেকিং:</strong> তথ্যের সত্যতা যাচাই করা।</li>\n        <li><strong>এসইও অপ্টিমাইজেশন:</strong> কিওয়ার্ড ডেনসিটি ও সার্চ ইনটেন্ট মিলিয়ে মেটা ট্যাগ জেনারেট করা।</li>\n        <li><strong>হাই-রেজুলেশন থাম্বনেইল তৈরি:</strong> এআই ভিজ্যুয়াল দিয়ে পাঠকদের আকর্ষণ বৃদ্ধি।</li>\n        <li><strong>বহুভাষিক প্রচার:</strong> এক ক্লিকে বাংলা থেকে ইংরেজিতে বা অন্যান্য ভাষায় অনুবাদ করে গ্লোবাল অডিয়েন্স ধরা।</li>\n      </ol>\n\n      <blockquote class=\"border-l-4 border-amber-500 pl-4 py-2 italic my-6 text-gray-700 dark:text-gray-300 bg-amber-50/50 dark:bg-amber-950/20 rounded-r\">\n        \"প্রযুক্তি মানুষকে প্রতিস্থাপন করবে না, কিন্তু যে মানুষ প্রযুক্তি ব্যবহার করবে সে পেছনের সবাইকে ছাড়িয়ে যাবে।\"\n      </blockquote>\n\n      <h2 class=\"text-2xl font-bold mt-6 mb-3\">উপসংহার</h2>\n      <p class=\"mb-4\">আপনি যদি একজন ব্লগার বা রাইটার হন, তবে এআই টুলসকে আপনার প্রতিদ্বন্দ্বী না ভেবে পরম বন্ধু হিসেবে গ্রহণ করুন। ব্লগারের নতুন এআই স্টুডিও এই কাজটিকে আরও সহজ করে দিয়েছে।</p>\n    ",
+      "featuredImage": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1200&auto=format&fit=crop&q=80",
+      "imageCaption": "ডিজিটাল ক্রিয়েটিভিটি এবং এআই সমন্বয়ের প্রতীকী ছবি",
+      "author": {
+        "id": "usr_admin",
+        "name": "তানভীর আহমেদ (Tanvir Ahmed)",
+        "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
+        "bio": "টেক উদ্যোক্তা, ফুল-স্ট্যাক ডেভেলপার ও কন্টেন্ট ক্রিয়েটর। বাংলা ভাষায় আধুনিক প্রযুক্তির বিস্তার ঘটাতে ভালোবাসি।"
+      },
+      "categories": [
+        "প্রযুক্তি",
+        "কৃত্রিম বুদ্ধিমত্তা",
+        "কন্টেন্ট মার্কেটিং"
+      ],
+      "tags": [
+        "AI",
+        "Gemini",
+        "Blogging",
+        "Bangla",
+        "SEO"
+      ],
+      "status": "published",
+      "publishedAt": "2026-08-15T10:30:00Z",
+      "updatedAt": "2026-08-18T14:20:00Z",
+      "views": 4823,
+      "likes": 342,
+      "isLikedByUser": false,
+      "isPaywalled": false,
+      "readingTimeMinutes": 5,
+      "seo": {
+        "metaTitle": "২০২৬ সালে কৃত্রিম বুদ্ধিমত্তা ও জেনারেটিভ এআই বিপ্লব | Blogge",
+        "metaDescription": "জানুন কীভাবে আধুনিক এআই ও জেমিনি ব্যবহার করে বাংলা ব্লগের কন্টেন্ট কোয়ালিটি এবং ট্রাফিক ১০ গুণ বৃদ্ধি করবেন।",
+        "keywords": [
+          "AI blogging",
+          "Bangla AI",
+          "Content creation 2026",
+          "SEO tips"
+        ]
+      },
+      "affiliateLinks": [
+        {
+          "title": "সেরা হোস্টিং ডিল (৭০% ছাড়)",
+          "url": "https://hostinger.com",
+          "discountCode": "BLOGGE70"
+        }
+      ]
+    },
+    {
+      "id": "post_2",
+      "title": "ফুল-স্ট্যাক ওয়েব ডেভেলপমেন্ট রোডম্যাপ ২০২৬: রিয়্যাক্ট ১৯, নোড ও ক্লাউড কম্পিউটিং",
+      "slug": "fullstack-web-development-roadmap-2026",
+      "summary": "একজন আধুনিক ফুল-স্ট্যাক ডেভেলপার হতে ২০২৬ সালে আপনার কী কী জানা জরুরি — ফ্রন্টএন্ড, ব্যাকএন্ড, ডেভঅপস ও এআই ইন্টিগ্রেশন।",
+      "content": "\n      <p class=\"lead font-medium text-lg mb-4\">ওয়েব ডেভেলপমেন্ট জগৎ দ্রুত পরিবর্তিত হচ্ছে। আজ শুধু HTML, CSS ও JS জানাই যথেষ্ট নয়; ক্লাউড নেটিভ আর্কিটেকচার এবং ইন্টেলিজেন্ট এপিআই ব্যবহারের দক্ষতা অপরিহার্য।</p>\n      \n      <h2 class=\"text-2xl font-bold mt-6 mb-3\">১. ফ্রন্টএন্ড আর্কিটেকচার</h2>\n      <p class=\"mb-4\">React 19 এবং আধুনিক কম্পাইলার অপ্টিমাইজেশন আমাদের স্টেট ম্যানেজমেন্ট ও রেন্ডারিং পারফরম্যান্সে অনেক সুবিধা দিয়েছে। Tailwind CSS v4 এর বিদ্যুৎগতির ইঞ্জিন স্টাইলিংকে আনন্দদায়ক করেছে।</p>\n\n      <h2 class=\"text-2xl font-bold mt-6 mb-3\">২. ব্যাকএন্ড ও মাইক্রোসার্ভিসেস</h2>\n      <p class=\"mb-4\">Node.js + Express বা Fastify এর সাথে TypeScript এখন ইন্ডাস্ট্রির অবিসংবাদিত স্ট্যান্ডার্ড। ডেটাবেস হিসেবে MongoDB বা PostgreSQL ক্লাউড সার্ভারলেস সমাধানগুলো জনপ্রিয়তার শীর্ষে।</p>\n      \n      <pre class=\"bg-gray-900 text-green-400 p-4 rounded-lg my-4 text-sm font-mono overflow-x-auto\">\n// Example modern express route with async handling\napp.get('/api/posts', async (req, res) => {\n  const posts = await db.collection('posts').find({ status: 'published' }).toArray();\n  res.json({ success: true, count: posts.length, data: posts });\n});</pre>\n\n      <h2 class=\"text-2xl font-bold mt-6 mb-3\">৩. এআই ও ডেভঅপস স্কিল</h2>\n      <p class=\"mb-4\">Docker, CI/CD পাইপলাইন এবং ব্যাকএন্ডে Gemini/OpenAI SDK দিয়ে অটোমেশন গড়ে তোলার জ্ঞান আপনাকে অন্যদের থেকে বহুদূর এগিয়ে রাখবে।</p>\n    ",
+      "featuredImage": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&auto=format&fit=crop&q=80",
+      "imageCaption": "আধুনিক কোডিং ও ওয়েব ডেভেলপমেন্ট ওয়ার্কস্পেস",
+      "author": {
+        "id": "usr_author",
+        "name": "রাফিদ হাসান",
+        "avatar": "https://api.dicebear.com/7.x/bottts/svg?seed=%E0%A6%B0%E0%A6%BE%E0%A6%AB%E0%A6%BF%E0%A6%A6%20%E0%A6%B9%E0%A6%BE%E0%A6%B8%E0%A6%BE%E0%A6%A8%20(Rafid%20Hasan)"
+      },
+      "categories": [
+        "প্রযুক্তি",
+        "প্রোগ্রামিং",
+        "টিউটোরিয়াল"
+      ],
+      "tags": [
+        "React",
+        "Nodejs",
+        "TypeScript",
+        "WebDev",
+        "Career"
+      ],
+      "status": "published",
+      "publishedAt": "2026-08-10T12:00:00Z",
+      "updatedAt": "2026-08-12T09:00:00Z",
+      "views": 3191,
+      "likes": 280,
+      "isLikedByUser": false,
+      "isPaywalled": false,
+      "readingTimeMinutes": 7,
+      "seo": {
+        "metaTitle": "ফুল-স্ট্যাক ওয়েব ডেভেলপমেন্ট রোডম্যাপ ২০২৬ | Blogge Tech",
+        "metaDescription": "২০২৬ সালের জন্য তৈরি সম্পূর্ণ ফুল-স্ট্যাক রোডম্যাপ। রিয়্যাক্ট, নোড, ক্লাউড ও এআই ইন্টিগ্রেশন বিস্তারিত।",
+        "keywords": [
+          "Web Development Roadmap",
+          "React 19",
+          "Fullstack Developer",
+          "Node.js"
+        ]
+      }
+    },
+    {
+      "id": "post_3",
+      "title": "ব্লগ থেকে প্রতি মাসে ১০০০ ডলার আয়ের বাস্তবসম্মত গাইডলাইন: এডসেন্স, অ্যাফিলিয়েট ও স্পনসরশিপ",
+      "slug": "how-to-earn-1000-dollars-per-month-blogging-guide",
+      "summary": "ওয়েবসাইট মনিটাইজেশন ও প্যাসিভ ইনকামের প্রমাণিত কলাকৌশল — গুগল অ্যাডসেন্স, অ্যাফিলিয়েট নেটওয়ার্ক ও পেইড মেম্বারশিপ।",
+      "content": "\n      <p class=\"lead font-medium text-lg mb-4\">অনেকেরই ধারণা ব্লগিং থেকে আয় করা কেবল পুরনো দিনের গল্প। কিন্তু বাস্তবতা হলো, মানসম্মত ও নির্দিষ্ট নিশ-ভিত্তিক (Niche) ব্লগের চাহিদা এখন আগের চেয়েও বহুগুণ বেশি।</p>\n      \n      <h2 class=\"text-2xl font-bold mt-6 mb-3\">আয়ের ৩টি মূল স্তম্ভ</h2>\n      <ul class=\"list-disc pl-6 space-y-3 mb-6\">\n        <li><strong>গুগল অ্যাডসেন্স ও ডিসপ্লে অ্যাডস:</strong> হাই সিপিসি (High CPC) কিওয়ার্ডে ট্রাফিক এনে অটো অ্যাডস ও ইন-পোস্ট ব্যানার থেকে প্যাসিভ ইনকাম।</li>\n        <li><strong>অ্যাফিলিয়েট মার্কেটিং:</strong> আপনি যে সফটওয়্যার বা গ্যাজেট ব্যবহার করেন তার সৎ রিভিউ ও অ্যাফিলিয়েট লিংক শেয়ার করা।</li>\n        <li><strong>প্রিমিয়াম সাবস্ক্রিপশন ও ডোনেশন:</strong> ডেডিকেটেড পাঠকদের জন্য স্পেশাল এক্সক্লুসিভ আর্টিকেল ও টিপস সুবিধা।</li>\n      </ul>\n\n      <h2 class=\"text-2xl font-bold mt-6 mb-3\">ট্রাফিক বৃদ্ধির গোপন সূত্র</h2>\n      <p class=\"mb-4\">লং-টেইল কিওয়ার্ড টার্গেট করুন, পেজ লোডিং স্পিড ২ সেকেন্ডের নিচে রাখুন এবং সোশ্যাল মিডিয়া কমিউনিটিতে সক্রিয় থাকুন।</p>\n    ",
+      "featuredImage": "https://images.unsplash.com/photo-1579532537598-459ecdaf39cc?w=1200&auto=format&fit=crop&q=80",
+      "imageCaption": "ডিজিটাল ইনভেস্টমেন্ট ও ব্লগ মনিটাইজেশন",
+      "author": {
+        "id": "usr_admin",
+        "name": "তানভীর আহমেদ (Tanvir Ahmed)",
+        "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
+        "bio": "টেক উদ্যোক্তা, ফুল-স্ট্যাক ডেভেলপার ও কন্টেন্ট ক্রিয়েটর। বাংলা ভাষায় আধুনিক প্রযুক্তির বিস্তার ঘটাতে ভালোবাসি।"
+      },
+      "categories": [
+        "ব্যবসা ও ফ্রিল্যান্সিং",
+        "উপার্জন",
+        "টিপস"
+      ],
+      "tags": [
+        "AdSense",
+        "Affiliate",
+        "Passive Income",
+        "Monetization"
+      ],
+      "status": "published",
+      "publishedAt": "2026-08-05T08:15:00Z",
+      "updatedAt": "2026-08-06T11:45:00Z",
+      "views": 6540,
+      "likes": 512,
+      "isLikedByUser": false,
+      "isPaywalled": false,
+      "readingTimeMinutes": 6,
+      "seo": {
+        "metaTitle": "ব্লগ থেকে প্রতি মাসে ১০০০ ডলার আয়ের বাস্তবসম্মত গাইডলাইন",
+        "metaDescription": "গুগল অ্যাডসেন্স ও অ্যাফিলিয়েট থেকে প্যাসিভ ইনকাম করার কার্যকরী নিয়মাবলি।",
+        "keywords": [
+          "Earn from blog",
+          "Google Adsense income",
+          "Affiliate marketing Bangla"
+        ]
+      }
+    },
+    {
+      "id": "post_4",
+      "title": "প্রশান্ত মনের খোঁজে: ডিজিটাল যুগে ফোকাস ধরে রাখার ৫টি বৈজ্ঞানিক অভ্যাস",
+      "slug": "mindfulness-and-deep-focus-in-digital-era",
+      "summary": "নোটিফিকেশনের ভিড়ে মনোযোগ নষ্ট না করে ডিপ ওয়ার্ক (Deep Work) ও মানসিক প্রশান্তি অর্জনের কার্যকরী রূপরেখা।",
+      "content": "\n      <p class=\"lead font-medium text-lg mb-4\">আমাদের মস্তিষ্ক একটানা হাজারো নোটিফিকেশন ও শর্ট ভিডিও ফিডের দ্বারা অতিরিক্ত স্টিমুলেশনের শিকার হচ্ছে। কীভাবে এই ডিজিটাল ক্লান্তি দূর করবেন?</p>\n      \n      <h2 class=\"text-2xl font-bold mt-6 mb-3\">১. পমোডোরো ও টাইম-ব্লকিং কৌশল</h2>\n      <p class=\"mb-4\">প্রতি ২৫ মিনিট সম্পূর্ণ একক কোনো কাজে ফোকাস করুন এবং ৫ মিনিট চোখ বন্ধ করে বিশ্রাম নিন। ফোনে ডু-নট-ডিস্টার্ব (DND) চালু রাখুন।</p>\n\n      <h2 class=\"text-2xl font-bold mt-6 mb-3\">২. সকালের প্রথম এক ঘণ্টা স্ক্রিন-ফ্রি থাকা</h2>\n      <p class=\"mb-4\">ঘুম থেকে উঠেই ফোন চেক করার অভ্যাস ডোপামিন স্পাইক ঘটিয়ে সারাদিনের উৎপাদনশীলতা কমিয়ে দেয়। সকালে একটু হাঁটা, মেডিটেশন বা বই পড়ার অভ্যাস গড়ে তুলুন।</p>\n    ",
+      "featuredImage": "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=1200&auto=format&fit=crop&q=80",
+      "imageCaption": "প্রকৃতির সান্নিধ্যে মানসিক প্রশান্তি",
+      "author": {
+        "id": "usr_editor",
+        "name": "নুসরাত জাহান",
+        "avatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80"
+      },
+      "categories": [
+        "লাইফস্টাইল",
+        "মানসিক স্বাস্থ্য",
+        "মোটিভেশন"
+      ],
+      "tags": [
+        "Mindfulness",
+        "Productivity",
+        "DeepWork",
+        "MentalHealth"
+      ],
+      "status": "published",
+      "publishedAt": "2026-07-28T16:00:00Z",
+      "updatedAt": "2026-07-29T10:00:00Z",
+      "views": 2410,
+      "likes": 198,
+      "isLikedByUser": false,
+      "isPaywalled": false,
+      "readingTimeMinutes": 4,
+      "seo": {
+        "metaTitle": "ডিজিটাল যুগে ফোকাস ধরে রাখার বৈজ্ঞানিক অভ্যাস | Blogge Life",
+        "metaDescription": "ডিপ ওয়ার্ক ও ডিজিটাল ডিটক্সের মাধ্যমে মনোযোগ ও উৎপাদনশীলতা বৃদ্ধির সহজ উপায়।",
+        "keywords": [
+          "Deep work",
+          "Digital detox",
+          "Mindfulness Bangla",
+          "Focus hacks"
+        ]
+      }
+    }
+  ],
+  "comments": [
+    {
+      "id": "cmt_1788161876789",
+      "postId": "post_1788161876769",
+      "authorName": "Friendly Reader ",
+      "authorEmail": "reader@example.com",
+      "authorAvatar": "https://api.dicebear.com/7.x/bottts/svg?seed=Friendly Reader ",
+      "content": "This is a genuine comment on the article!",
+      "createdAt": "2026-08-31T07:37:56.789Z",
+      "status": "approved",
+      "likes": 0,
+      "reportsCount": 0,
+      "parentId": null,
+      "replies": []
+    },
+    {
+      "id": "cmt_1788109887721",
+      "postId": "post_1788109887697",
+      "authorName": "Friendly Reader ",
+      "authorEmail": "reader@example.com",
+      "authorAvatar": "https://api.dicebear.com/7.x/bottts/svg?seed=Friendly Reader ",
+      "content": "This is a genuine comment on the article!",
+      "createdAt": "2026-08-30T17:11:27.721Z",
+      "status": "approved",
+      "likes": 0,
+      "reportsCount": 0,
+      "parentId": null,
+      "replies": []
+    },
+    {
+      "id": "cmt_1788109663844",
+      "postId": "post_1788109663822",
+      "authorName": "Friendly Reader ",
+      "authorEmail": "reader@example.com",
+      "authorAvatar": "https://api.dicebear.com/7.x/bottts/svg?seed=Friendly Reader ",
+      "content": "This is a genuine comment on the article!",
+      "createdAt": "2026-08-30T17:07:43.844Z",
+      "status": "approved",
+      "likes": 0,
+      "reportsCount": 0,
+      "parentId": null,
+      "replies": []
+    },
+    {
+      "id": "cmt_1788109630522",
+      "postId": "post_1788109630487",
+      "authorName": "Friendly Reader ",
+      "authorEmail": "reader@example.com",
+      "authorAvatar": "https://api.dicebear.com/7.x/bottts/svg?seed=Friendly Reader ",
+      "content": "This is a genuine comment on the article!",
+      "createdAt": "2026-08-30T17:07:10.522Z",
+      "status": "approved",
+      "likes": 0,
+      "reportsCount": 0,
+      "parentId": null,
+      "replies": []
+    },
+    {
+      "id": "cmt_1788109604834",
+      "postId": "post_1788109604815",
+      "authorName": "Friendly Reader ",
+      "authorEmail": "reader@example.com",
+      "authorAvatar": "https://api.dicebear.com/7.x/bottts/svg?seed=Friendly Reader ",
+      "content": "This is a genuine comment on the article!",
+      "createdAt": "2026-08-30T17:06:44.834Z",
+      "status": "approved",
+      "likes": 0,
+      "reportsCount": 0,
+      "parentId": null,
+      "replies": []
+    },
+    {
+      "id": "cmt_1788109594672",
+      "postId": "post_1788109594649",
+      "authorName": "Friendly Reader ",
+      "authorEmail": "reader@example.com",
+      "authorAvatar": "https://api.dicebear.com/7.x/bottts/svg?seed=Friendly Reader ",
+      "content": "This is a genuine comment on the article!",
+      "createdAt": "2026-08-30T17:06:34.672Z",
+      "status": "approved",
+      "likes": 0,
+      "reportsCount": 0,
+      "parentId": null,
+      "replies": []
+    },
+    {
+      "id": "cmt_1788109550644",
+      "postId": "post_1788109550608",
+      "authorName": "Friendly Reader ",
+      "authorEmail": "reader@example.com",
+      "authorAvatar": "https://api.dicebear.com/7.x/bottts/svg?seed=Friendly Reader ",
+      "content": "This is a genuine comment on the article!",
+      "createdAt": "2026-08-30T17:05:50.644Z",
+      "status": "approved",
+      "likes": 0,
+      "reportsCount": 0,
+      "parentId": null,
+      "replies": []
+    },
+    {
+      "id": "cmt_1788109518026",
+      "postId": "post_1788109517983",
+      "authorName": "Friendly Reader ",
+      "authorEmail": "reader@example.com",
+      "authorAvatar": "https://api.dicebear.com/7.x/bottts/svg?seed=Friendly Reader ",
+      "content": "This is a genuine comment on the article!",
+      "createdAt": "2026-08-30T17:05:18.026Z",
+      "status": "approved",
+      "likes": 0,
+      "reportsCount": 0,
+      "parentId": null,
+      "replies": []
+    },
+    {
+      "id": "comm_1",
+      "postId": "post_1",
+      "authorName": "সাকিব আল হাসান",
+      "authorEmail": "sakib@gmail.com",
+      "authorAvatar": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop&q=80",
+      "content": "অসাধারণ তথ্যবহুল একটি লেখা! বিশেষ করে জেমিনি এআই দিয়ে বাংলা কন্টেন্ট লেখার পার্টটা দারুণ লেগেছে।",
+      "createdAt": "2026-08-16T11:20:00Z",
+      "status": "approved",
+      "likes": 14,
+      "parentId": null,
+      "replies": [
+        {
+          "id": "comm_1_rep_1",
+          "postId": "post_1",
+          "authorName": "তানভীর আহমেদ (লেখক)",
+          "authorEmail": "tanvir@blogge.io",
+          "authorAvatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
+          "content": "ধন্যবাদ ভাই! আশা করি ব্লগারের এআই টুল ব্যবহার করে উপকৃত হবেন।",
+          "createdAt": "2026-08-16T12:05:00Z",
+          "status": "approved",
+          "likes": 6,
+          "parentId": "comm_1"
+        }
+      ]
+    },
+    {
+      "id": "comm_2",
+      "postId": "post_2",
+      "authorName": "মেহজাবিন চৌধুরী",
+      "authorEmail": "mehjabin@dev.com",
+      "authorAvatar": "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=100&auto=format&fit=crop&q=80",
+      "content": "React 19 এবং Tailwind v4 এর সংমিশ্রণে সত্যিই কাজ করা অনেক দ্রুত হয়ে গেছে। চমৎকার রোডম্যাপ!",
+      "createdAt": "2026-08-11T14:40:00Z",
+      "status": "approved",
+      "likes": 8,
+      "parentId": null,
+      "replies": []
+    },
+    {
+      "id": "comm_3",
+      "postId": "post_3",
+      "authorName": "অজানা স্প্যামার",
+      "authorEmail": "casino@spam.xyz",
+      "authorAvatar": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&auto=format&fit=crop&q=80",
+      "content": "Play casino online win free crypto click here http://spam.xyz",
+      "createdAt": "2026-08-07T03:10:00Z",
+      "status": "spam",
+      "likes": 0,
+      "parentId": null,
+      "replies": []
+    }
+  ],
+  "pages": [
+    {
+      "id": "page_about",
+      "title": "আমাদের সম্পর্কে (About Us)",
+      "slug": "about-us",
+      "status": "published",
+      "isDefault": true,
+      "updatedAt": "2026-08-01",
+      "content": "\n      <h2>ব্লগার প্রো (Blogge Pro) এর পরিচিতি</h2>\n      <p>ব্লগার প্রো হলো একটি আধুনিক, শক্তিশালী এবং আন্তর্জাতিক মানের ডিজিটাল পাবলিশিং প্ল্যাটফর্ম। এটি লেখক, সাংবাদিক, প্রযুক্তিবিদ এবং কনটেন্ট ক্রিয়েটরদের জন্য নিজস্ব চিন্তা-ভাবনা সহজে প্রকাশ করার একটি উন্মুক্ত স্থান।</p>\n      <h3>আমাদের লক্ষ্য</h3>\n      <p>বাংলা ও বিশ্বভাষায় জ্ঞানভিত্তিক কন্টেন্টকে আরও সমৃদ্ধ ও সবার জন্য সহজে উন্মুক্ত করা।</p>\n    ",
+      "seo": {
+        "metaTitle": "আমাদের সম্পর্কে | Blogge Pro Platform",
+        "metaDescription": "ব্লগার প্রো পাবলিশিং প্ল্যাটফর্ম সম্পর্কে বিস্তারিত জানুন।"
+      }
+    },
+    {
+      "id": "page_contact",
+      "title": "যোগাযোগ (Contact Us)",
+      "slug": "contact-us",
+      "status": "published",
+      "isDefault": true,
+      "updatedAt": "2026-08-01",
+      "content": "\n      <h2>আমাদের সাথে যোগাযোগ করুন</h2>\n      <p>যেকোনো প্রশ্ন, মতামত, বা বাণিজ্যিক বিজ্ঞাপনের জন্য আমাদের সাথে ইমেইল বা সোশ্যাল মিডিয়ায় যোগাযোগ করতে পারেন।</p>\n      <p><strong>ইমেইল:</strong> support@blogge.io</p>\n      <p><strong>ঠিকানা:</strong> গুলশান-২, ঢাকা, বাংলাদেশ</p>\n    ",
+      "seo": {
+        "metaTitle": "যোগাযোগ করুন | Blogge Contact",
+        "metaDescription": "ব্লগার প্রো টিমের সাথে সরাসরি যোগাযোগের ঠিকানা ও মাধ্যম।"
+      }
+    },
+    {
+      "id": "page_privacy",
+      "title": "গোপনীয়তা নীতি (Privacy Policy)",
+      "slug": "privacy-policy",
+      "status": "published",
+      "isDefault": true,
+      "updatedAt": "2026-08-01",
+      "content": "\n      <h2>গোপনীয়তা ও ডেটা সুরক্ষা নীতি</h2>\n      <p>আমরা আমাদের পাঠকদের তথ্যের সর্বোচ্চ সুরক্ষা নিশ্চিত করি। আপনার ব্যক্তিগত ইমেইল বা কুকি ডেটা কখনোই তৃতীয় পক্ষের কাছে বিক্রি করা হয় না।</p>\n    ",
+      "seo": {
+        "metaTitle": "গোপনীয়তা নীতি | Blogge Privacy Policy",
+        "metaDescription": "ব্লগার প্ল্যাটফর্মে আপনার ডেটা সুরক্ষা ও নিরাপত্তা সংক্রান্ত তথ্যাবলি।"
+      }
+    },
+    {
+      "id": "page_terms",
+      "title": "ব্যবহারের শর্তাবলী (Terms & Conditions)",
+      "slug": "terms-and-conditions",
+      "status": "published",
+      "isDefault": true,
+      "updatedAt": "2026-08-01",
+      "content": "\n      <h2>ব্যবহারের শর্তাবলী</h2>\n      <p>ব্লগার প্রো ব্যবহারের মাধ্যমে আপনি সকল কপিরাইট ও শিষ্টাচার নীতি মেনে চলার অঙ্গীকার করছেন। কোনো ধরনের ঘৃণাসূচক বা বেআইনি কন্টেন্ট প্রচার নিষিদ্ধ।</p>\n    ",
+      "seo": {
+        "metaTitle": "ব্যবহারের শর্তাবলী | Terms of Service",
+        "metaDescription": "আমাদের সাইট ব্যবহারের নিয়মাবলি ও শর্তাবলি।"
+      }
+    }
+  ],
+  "widgets": [
+    {
+      "id": "w_header",
+      "title": "Header & Brand Title",
+      "type": "header",
+      "section": "header",
+      "order": 1,
+      "isEnabled": true
+    },
+    {
+      "id": "w_navbar",
+      "title": "Top Navigation Menu",
+      "type": "navbar",
+      "section": "top_bar",
+      "order": 2,
+      "isEnabled": true
+    },
+    {
+      "id": "w_hero",
+      "title": "Featured Post Spotlight",
+      "type": "featured_slider",
+      "section": "hero",
+      "order": 3,
+      "isEnabled": true
+    },
+    {
+      "id": "w_main",
+      "title": "Main Blog Posts Feed",
+      "type": "main_posts",
+      "section": "content_top",
+      "order": 4,
+      "isEnabled": true
+    },
+    {
+      "id": "w_author",
+      "title": "Author Profile Widget",
+      "type": "author_bio",
+      "section": "sidebar",
+      "order": 5,
+      "isEnabled": true
+    },
+    {
+      "id": "w_popular",
+      "title": "Popular Posts Widget",
+      "type": "popular_posts",
+      "section": "sidebar",
+      "order": 6,
+      "isEnabled": true
+    },
+    {
+      "id": "w_adsense",
+      "title": "AdSense Banner (300x250)",
+      "type": "adsense_banner",
+      "section": "sidebar",
+      "order": 7,
+      "isEnabled": true
+    },
+    {
+      "id": "w_categories",
+      "title": "Categories Cloud",
+      "type": "categories",
+      "section": "sidebar",
+      "order": 8,
+      "isEnabled": true
+    },
+    {
+      "id": "w_newsletter",
+      "title": "Newsletter Box",
+      "type": "newsletter",
+      "section": "sidebar",
+      "order": 9,
+      "isEnabled": true
+    },
+    {
+      "id": "w_social",
+      "title": "Social Follow Buttons",
+      "type": "social_follow",
+      "section": "sidebar",
+      "order": 10,
+      "isEnabled": true
+    },
+    {
+      "id": "w_footer_about",
+      "title": "About Site Info",
+      "type": "footer_about",
+      "section": "footer",
+      "order": 11,
+      "isEnabled": true
+    },
+    {
+      "id": "w_footer_links",
+      "title": "Quick Links & Policies",
+      "type": "footer_links",
+      "section": "footer",
+      "order": 12,
+      "isEnabled": true
+    },
+    {
+      "id": "w_footer_copy",
+      "title": "Copyright & Socials",
+      "type": "footer_copyright",
+      "section": "footer",
+      "order": 13,
+      "isEnabled": true
+    }
+  ],
+  "themes": [
+    {
+      "id": "theme_frosted_glass",
+      "name": "Frosted Glass",
+      "nameBn": "ফ্রস্টেড গ্লাস (Frosted Glass)",
+      "description": "ফিউচারিস্টিক ফ্রস্টেড গ্লাসিমর্ফিজম, মেস ব্যাকগ্রাউন্ড, ব্লার এফেক্ট ও ইন্ডিগো/ভায়োলেট অ্যাকসেন্ট।",
+      "previewImage": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&auto=format&fit=crop&q=80",
+      "fontFamilyHeading": "sans-serif",
+      "fontFamilyBody": "sans-serif",
+      "primaryColor": "#6366f1",
+      "accentColor": "#a855f7",
+      "bgColorLight": "#f1f5f9",
+      "cardBgLight": "rgba(255, 255, 255, 0.75)",
+      "bgColorDark": "#0f172a",
+      "cardBgDark": "rgba(255, 255, 255, 0.05)",
+      "borderRadius": "16px",
+      "headerStyle": "standard"
+    },
+    {
+      "id": "theme_classic",
+      "name": "Blogger Classic",
+      "nameBn": "ব্লগার ক্লাসিক",
+      "description": "গুগল ব্লগারে সুপরিচিত ট্রেডিশনাল পরিষ্কার লেআউট, ডানদিকের সাইডবার এবং টপ অরেঞ্জ/ব্লু অ্যাকসেন্ট।",
+      "previewImage": "https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=600&auto=format&fit=crop&q=80",
+      "fontFamilyHeading": "sans-serif",
+      "fontFamilyBody": "sans-serif",
+      "primaryColor": "#f97316",
+      "accentColor": "#0284c7",
+      "bgColorLight": "#f8fafc",
+      "cardBgLight": "#ffffff",
+      "bgColorDark": "#0f172a",
+      "cardBgDark": "#1e293b",
+      "borderRadius": "12px",
+      "headerStyle": "standard"
+    },
+    {
+      "id": "theme_editorial",
+      "name": "Editorial Minimal",
+      "nameBn": "এডিটোরিয়াল মিনিমাল",
+      "description": "মিডিয়াম ও সাবস্ট্যাক স্টাইলের দৃষ্টিনন্দন সেরিফ টাইপোগ্রাফি ও নিঃসীম পড়ার অভিজ্ঞতা।",
+      "previewImage": "https://images.unsplash.com/photo-1457369804613-52c61a468e7d?w=600&auto=format&fit=crop&q=80",
+      "fontFamilyHeading": "serif",
+      "fontFamilyBody": "serif",
+      "primaryColor": "#18181b",
+      "accentColor": "#10b981",
+      "bgColorLight": "#fafaf9",
+      "cardBgLight": "#ffffff",
+      "bgColorDark": "#18181b",
+      "cardBgDark": "#27272a",
+      "borderRadius": "8px",
+      "headerStyle": "minimal"
+    },
+    {
+      "id": "theme_cyber",
+      "name": "Cyber Tech Nova",
+      "nameBn": "সাইবার টেক নোভা",
+      "description": "ফিউচারিস্টিক ডার্ক-ব্লু ও নিয়ন অ্যাকসেন্ট যুক্ত প্রযুক্তি ও কোডিং স্পেশাল থিম।",
+      "previewImage": "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=600&auto=format&fit=crop&q=80",
+      "fontFamilyHeading": "monospace",
+      "fontFamilyBody": "sans-serif",
+      "primaryColor": "#6366f1",
+      "accentColor": "#06b6d4",
+      "bgColorLight": "#f0fdf4",
+      "cardBgLight": "#ffffff",
+      "bgColorDark": "#030712",
+      "cardBgDark": "#111827",
+      "borderRadius": "16px",
+      "headerStyle": "bold_banner"
+    },
+    {
+      "id": "theme_bangla",
+      "name": "Bangla Sahitto Elegance",
+      "nameBn": "বাংলা সাহিত্য এলিগ্যান্স",
+      "description": "উষ্ণ ক্লাসিক বইয়ের পাতা সদৃশ ব্যাকগ্রাউন্ড ও রবীন্দ্র-নজরুল যুগের সাহিত্যিক আবহ।",
+      "previewImage": "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=600&auto=format&fit=crop&q=80",
+      "fontFamilyHeading": "serif",
+      "fontFamilyBody": "sans-serif",
+      "primaryColor": "#9a3412",
+      "accentColor": "#b45309",
+      "bgColorLight": "#fffbeb",
+      "cardBgLight": "#ffffff",
+      "bgColorDark": "#1c1917",
+      "cardBgDark": "#292524",
+      "borderRadius": "10px",
+      "headerStyle": "centered"
+    },
+    {
+      "id": "theme_magazine",
+      "name": "Vibrant Magazine",
+      "nameBn": "ভাইব্র্যান্ট ম্যাগাজিন",
+      "description": "মাল্টি-কলাম গ্রিড, ট্রেন্ডিং স্পটলাইট ও কালারফুল ব্যাজ সমৃদ্ধ আধুনিক নিউজ ও ম্যাগাজিন থিম।",
+      "previewImage": "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=600&auto=format&fit=crop&q=80",
+      "fontFamilyHeading": "sans-serif",
+      "fontFamilyBody": "sans-serif",
+      "primaryColor": "#e11d48",
+      "accentColor": "#8b5cf6",
+      "bgColorLight": "#fdf4ff",
+      "cardBgLight": "#ffffff",
+      "bgColorDark": "#170b20",
+      "cardBgDark": "#261238",
+      "borderRadius": "14px",
+      "headerStyle": "bold_banner"
+    },
+    {
+      "id": "theme_monochrome",
+      "name": "Monochrome Studio",
+      "nameBn": "মনোক্রোম স্টুডিও",
+      "description": "উচ্চ কনট্রাস্টের ব্ল্যাক অ্যান্ড হোয়াইট মিনিমালিস্টিক আর্ট ও ডিজাইন ব্লগের জন্য সেরা।",
+      "previewImage": "https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?w=600&auto=format&fit=crop&q=80",
+      "fontFamilyHeading": "sans-serif",
+      "fontFamilyBody": "sans-serif",
+      "primaryColor": "#000000",
+      "accentColor": "#52525b",
+      "bgColorLight": "#ffffff",
+      "cardBgLight": "#f4f4f5",
+      "bgColorDark": "#09090b",
+      "cardBgDark": "#18181b",
+      "borderRadius": "4px",
+      "headerStyle": "minimal"
+    }
+  ],
+  "adSlots": [
+    {
+      "id": "ad_header",
+      "title": "Top Leaderboard Banner",
+      "location": "header_leaderboard",
+      "isEnabled": true,
+      "adType": "custom_banner",
+      "bannerImageUrl": "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1200&auto=format&fit=crop&q=80",
+      "targetUrl": "https://google.com",
+      "altText": "হোস্টিং সুপার অফার - ৭০% ছাড়"
+    },
+    {
+      "id": "ad_sidebar",
+      "title": "Sidebar Rectangle (300x250)",
+      "location": "sidebar_rectangle",
+      "isEnabled": true,
+      "adType": "adsense",
+      "adsenseSlotId": "ca-pub-9847291839281729"
+    },
+    {
+      "id": "ad_inpost",
+      "title": "In-Post Content Native Ad",
+      "location": "in_post_banner",
+      "isEnabled": true,
+      "adType": "custom_banner",
+      "bannerImageUrl": "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?w=800&auto=format&fit=crop&q=80",
+      "targetUrl": "https://ai.studio",
+      "altText": "AI Studio দ্বারা স্পনসরকৃত"
+    }
+  ],
+  "media": [
+    {
+      "id": "med_avatar_1787822502703",
+      "name": "Sohelmolla admin Profile Photo",
+      "fileName": "-2008423085.png-compressed (1).jpg",
+      "url": "/uploads/avatars/avatar_usr_1787561633296_1787822502702.jpg",
+      "type": "image",
+      "sizeBytes": 33015,
+      "mimeType": "image/jpeg",
+      "uploadedAt": "2026-08-27T09:21:42.703Z",
+      "altText": "Sohelmolla admin Profile Photo"
+    },
+    {
+      "id": "med_avatar_1787808923836",
+      "name": "Sohelmolla admin Profile Photo",
+      "fileName": "FB_IMG_1659466191027.jpg",
+      "url": "/uploads/avatars/avatar_usr_1787561633296_1787808923836.jpg",
+      "type": "image",
+      "sizeBytes": 86439,
+      "mimeType": "image/jpeg",
+      "uploadedAt": "2026-08-27T05:35:23.836Z",
+      "altText": "Sohelmolla admin Profile Photo"
+    },
+    {
+      "id": "med_avatar_1787808761731",
+      "name": "Sohelmolla admin Profile Photo",
+      "fileName": "test.jpg",
+      "url": "/uploads/avatars/avatar_usr_1787561633296_1787808761731.jpg",
+      "type": "image",
+      "sizeBytes": 22,
+      "mimeType": "image/jpeg",
+      "uploadedAt": "2026-08-27T05:32:41.731Z",
+      "altText": "Sohelmolla admin Profile Photo"
+    },
+    {
+      "id": "med_1",
+      "name": "ai-creative-revolution.jpg",
+      "url": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1200&auto=format&fit=crop&q=80",
+      "type": "image",
+      "sizeBytes": 420000,
+      "mimeType": "image/jpeg",
+      "uploadedAt": "2026-08-15",
+      "dimensions": {
+        "width": 1200,
+        "height": 800
+      }
+    },
+    {
+      "id": "med_2",
+      "name": "fullstack-coding-setup.jpg",
+      "url": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&auto=format&fit=crop&q=80",
+      "type": "image",
+      "sizeBytes": 580000,
+      "mimeType": "image/jpeg",
+      "uploadedAt": "2026-08-10",
+      "dimensions": {
+        "width": 1200,
+        "height": 800
+      }
+    },
+    {
+      "id": "med_3",
+      "name": "digital-earnings-guide.jpg",
+      "url": "https://images.unsplash.com/photo-1579532537598-459ecdaf39cc?w=1200&auto=format&fit=crop&q=80",
+      "type": "image",
+      "sizeBytes": 310000,
+      "mimeType": "image/jpeg",
+      "uploadedAt": "2026-08-05",
+      "dimensions": {
+        "width": 1200,
+        "height": 750
+      }
+    },
+    {
+      "id": "med_4",
+      "name": "mindfulness-nature-peace.jpg",
+      "url": "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=1200&auto=format&fit=crop&q=80",
+      "type": "image",
+      "sizeBytes": 490000,
+      "mimeType": "image/jpeg",
+      "uploadedAt": "2026-07-28",
+      "dimensions": {
+        "width": 1200,
+        "height": 800
+      }
+    }
+  ],
+  "settings": {
+    "siteName": "Blogge Pro",
+    "siteNameBn": "ব্লগার প্রো (Blogge)",
+    "tagline": "The Next-Gen Digital Publishing Platform",
+    "taglineBn": "আধুনিক বাংলা ও আন্তর্জাতিক ডিজিটাল পাবলিশিং প্ল্যাটফর্ম",
+    "description": "প্রযুক্তি, এআই, ক্যারিয়ার, সাহিত্য ও লাইফস্টাইল নিয়ে নিয়মিত সেরা লেখালেখির নির্ভরযোগ্য প্ল্যাটফর্ম।",
+    "logoUrl": "",
+    "faviconUrl": "",
+    "language": "bn",
+    "themeId": "theme_frosted_glass",
+    "customCss": "/* Custom CSS injected here */\n.post-card:hover { transform: translateY(-4px); transition: all 0.25s ease; }",
+    "customHeaderHtml": "<!-- Custom Header Scripts (Google Analytics/AdSense) -->",
+    "customFooterHtml": "<!-- Custom Footer Scripts -->",
+    "googleAdsensePubId": "ca-pub-8492049182374928",
+    "isAdsenseAutoAds": true,
+    "googleSearchConsoleMeta": "<meta name=\"google-site-verification\" content=\"blogge-verify-code-xyz\" />",
+    "googleSearchConsoleVerification": "<meta name=\"google-site-verification\" content=\"blogge-verify-code-xyz\" />",
+    "robotsTxt": "User-agent: *\nAllow: /\nDisallow: /admin\nDisallow: /dashboard\nSitemap: https://blogge.io/sitemap.xml",
+    "enableComments": true,
+    "moderateComments": true,
+    "allowPublicComments": true,
+    "commentApprovalRequired": false,
+    "spamFilterKeywords": [
+      "casino",
+      "viagra",
+      "free money",
+      "crypto scam",
+      "click here for prize"
+    ],
+    "securitySettings": {
+      "twoFactorRequired": false,
+      "loginNotifications": true,
+      "sessionTimeoutMinutes": 60
+    },
+    "adSlots": {
+      "adsensePublisherId": "ca-pub-8492049182374928",
+      "autoAdsEnabled": true,
+      "headerAdEnabled": true,
+      "sidebarAdEnabled": true,
+      "inPostAdEnabled": true,
+      "footerStickyAdEnabled": false
+    },
+    "donationConfig": {
+      "isEnabled": true,
+      "enabled": true,
+      "title": "ব্লগটি ভালো লাগলে একটি কফি উপহার দিন!",
+      "description": "আপনার ছোট্ট সহযোগিতা আমাদেরকে আরও তথ্যবহুল ও গবেষণাধর্মী কন্টেন্ট তৈরি করতে অনুপ্রেরণা জোগাবে।",
+      "bkashNumber": "01700-000000",
+      "nagadNumber": "01800-000000",
+      "stripeEnabled": true,
+      "paypalEmail": "donate@blogge.io"
+    },
+    "socialLinks": {
+      "facebook": "https://facebook.com",
+      "twitter": "https://twitter.com",
+      "instagram": "https://instagram.com",
+      "youtube": "https://youtube.com",
+      "github": "https://github.com"
+    }
+  },
+  "logs": [
+    {
+      "id": "log_1788161876802",
+      "userId": "usr_1788161876505",
+      "userName": "integration_author_1788161876418@example.com",
+      "action": "POST_DELETE",
+      "actionBn": "পোস্ট মুছে ফেলা",
+      "details": "Updated Post Title",
+      "timestamp": "2026-08-31T07:37:56.802Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788161876789",
+      "userId": "reader",
+      "userName": "Friendly Reader ",
+      "action": "COMMENT_ADD",
+      "actionBn": "নতুন মন্তব্য",
+      "details": "Post post_1788161876769: This is a genuine comment on the article",
+      "timestamp": "2026-08-31T07:37:56.789Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788161876774",
+      "userId": "usr_1788161876505",
+      "userName": "integration_author_1788161876418@example.com",
+      "action": "POST_UPDATE",
+      "actionBn": "পোস্ট হালনাগাদ",
+      "details": "Updated Post Title",
+      "timestamp": "2026-08-31T07:37:56.774Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788161876769",
+      "userId": "usr_1788161876505",
+      "userName": "Integration Author",
+      "action": "POST_CREATE",
+      "actionBn": "নতুন পোস্ট তৈরি",
+      "details": "Safe Blog Post ",
+      "timestamp": "2026-08-31T07:37:56.769Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788161876744",
+      "userId": "usr_1788161876505",
+      "userName": "Integration Author",
+      "action": "PASSWORD_RESET_SUCCESS",
+      "actionBn": "পাসওয়ার্ড সফলভাবে পরিবর্তিত",
+      "details": "Password reset completed for integration_author_1788161876418@example.com",
+      "timestamp": "2026-08-31T07:37:56.744Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788161876664",
+      "userId": "usr_1788161876505",
+      "userName": "Integration Author",
+      "action": "PASSWORD_RESET_REQUEST",
+      "actionBn": "পাসওয়ার্ড রিসেট অনুরোধ",
+      "details": "Password reset token issued for integration_author_1788161876418@example.com",
+      "timestamp": "2026-08-31T07:37:56.664Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788161876581",
+      "userId": "usr_1788161876505",
+      "userName": "Integration Author",
+      "action": "USER_LOGIN",
+      "actionBn": "ইউজার লগইন",
+      "details": "User logged in: integration_author_1788161876418@example.com",
+      "timestamp": "2026-08-31T07:37:56.581Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788161876505",
+      "userId": "usr_1788161876505",
+      "userName": "Integration Author",
+      "action": "USER_REGISTER",
+      "actionBn": "নতুন ইউজার রেজিস্ট্রেশন",
+      "details": "User registered: integration_author_1788161876418@example.com",
+      "timestamp": "2026-08-31T07:37:56.505Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109887735",
+      "userId": "usr_1788109887426",
+      "userName": "integration_author_1788109887332@example.com",
+      "action": "POST_DELETE",
+      "actionBn": "পোস্ট মুছে ফেলা",
+      "details": "Updated Post Title",
+      "timestamp": "2026-08-30T17:11:27.735Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109887721",
+      "userId": "reader",
+      "userName": "Friendly Reader ",
+      "action": "COMMENT_ADD",
+      "actionBn": "নতুন মন্তব্য",
+      "details": "Post post_1788109887697: This is a genuine comment on the article",
+      "timestamp": "2026-08-30T17:11:27.721Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109887704",
+      "userId": "usr_1788109887426",
+      "userName": "integration_author_1788109887332@example.com",
+      "action": "POST_UPDATE",
+      "actionBn": "পোস্ট হালনাগাদ",
+      "details": "Updated Post Title",
+      "timestamp": "2026-08-30T17:11:27.704Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109887697",
+      "userId": "usr_1788109887426",
+      "userName": "Integration Author",
+      "action": "POST_CREATE",
+      "actionBn": "নতুন পোস্ট তৈরি",
+      "details": "Safe Blog Post ",
+      "timestamp": "2026-08-30T17:11:27.697Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109887671",
+      "userId": "usr_1788109887426",
+      "userName": "Integration Author",
+      "action": "PASSWORD_RESET_SUCCESS",
+      "actionBn": "পাসওয়ার্ড সফলভাবে পরিবর্তিত",
+      "details": "Password reset completed for integration_author_1788109887332@example.com",
+      "timestamp": "2026-08-30T17:11:27.671Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109887593",
+      "userId": "usr_1788109887426",
+      "userName": "Integration Author",
+      "action": "PASSWORD_RESET_REQUEST",
+      "actionBn": "পাসওয়ার্ড রিসেট অনুরোধ",
+      "details": "Password reset token issued for integration_author_1788109887332@example.com",
+      "timestamp": "2026-08-30T17:11:27.593Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109887509",
+      "userId": "usr_1788109887426",
+      "userName": "Integration Author",
+      "action": "USER_LOGIN",
+      "actionBn": "ইউজার লগইন",
+      "details": "User logged in: integration_author_1788109887332@example.com",
+      "timestamp": "2026-08-30T17:11:27.509Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109887426",
+      "userId": "usr_1788109887426",
+      "userName": "Integration Author",
+      "action": "USER_REGISTER",
+      "actionBn": "নতুন ইউজার রেজিস্ট্রেশন",
+      "details": "User registered: integration_author_1788109887332@example.com",
+      "timestamp": "2026-08-30T17:11:27.426Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109663862",
+      "userId": "usr_1788109663550",
+      "userName": "integration_author_1788109663461@example.com",
+      "action": "POST_DELETE",
+      "actionBn": "পোস্ট মুছে ফেলা",
+      "details": "Updated Post Title",
+      "timestamp": "2026-08-30T17:07:43.862Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109663844",
+      "userId": "reader",
+      "userName": "Friendly Reader ",
+      "action": "COMMENT_ADD",
+      "actionBn": "নতুন মন্তব্য",
+      "details": "Post post_1788109663822: This is a genuine comment on the article",
+      "timestamp": "2026-08-30T17:07:43.844Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109663830",
+      "userId": "usr_1788109663550",
+      "userName": "integration_author_1788109663461@example.com",
+      "action": "POST_UPDATE",
+      "actionBn": "পোস্ট হালনাগাদ",
+      "details": "Updated Post Title",
+      "timestamp": "2026-08-30T17:07:43.830Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109663822",
+      "userId": "usr_1788109663550",
+      "userName": "Integration Author",
+      "action": "POST_CREATE",
+      "actionBn": "নতুন পোস্ট তৈরি",
+      "details": "Safe Blog Post ",
+      "timestamp": "2026-08-30T17:07:43.822Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109663795",
+      "userId": "usr_1788109663550",
+      "userName": "Integration Author",
+      "action": "PASSWORD_RESET_SUCCESS",
+      "actionBn": "পাসওয়ার্ড সফলভাবে পরিবর্তিত",
+      "details": "Password reset completed for integration_author_1788109663461@example.com",
+      "timestamp": "2026-08-30T17:07:43.795Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109663715",
+      "userId": "usr_1788109663550",
+      "userName": "Integration Author",
+      "action": "PASSWORD_RESET_REQUEST",
+      "actionBn": "পাসওয়ার্ড রিসেট অনুরোধ",
+      "details": "Password reset token issued for integration_author_1788109663461@example.com",
+      "timestamp": "2026-08-30T17:07:43.715Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109663629",
+      "userId": "usr_1788109663550",
+      "userName": "Integration Author",
+      "action": "USER_LOGIN",
+      "actionBn": "ইউজার লগইন",
+      "details": "User logged in: integration_author_1788109663461@example.com",
+      "timestamp": "2026-08-30T17:07:43.629Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109663550",
+      "userId": "usr_1788109663550",
+      "userName": "Integration Author",
+      "action": "USER_REGISTER",
+      "actionBn": "নতুন ইউজার রেজিস্ট্রেশন",
+      "details": "User registered: integration_author_1788109663461@example.com",
+      "timestamp": "2026-08-30T17:07:43.550Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109630535",
+      "userId": "usr_1788109630209",
+      "userName": "integration_author_1788109630116@example.com",
+      "action": "POST_DELETE",
+      "actionBn": "পোস্ট মুছে ফেলা",
+      "details": "Updated Post Title",
+      "timestamp": "2026-08-30T17:07:10.535Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109630522",
+      "userId": "reader",
+      "userName": "Friendly Reader ",
+      "action": "COMMENT_ADD",
+      "actionBn": "নতুন মন্তব্য",
+      "details": "Post post_1788109630487: This is a genuine comment on the article",
+      "timestamp": "2026-08-30T17:07:10.522Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109630500",
+      "userId": "usr_1788109630209",
+      "userName": "integration_author_1788109630116@example.com",
+      "action": "POST_UPDATE",
+      "actionBn": "পোস্ট হালনাগাদ",
+      "details": "Updated Post Title",
+      "timestamp": "2026-08-30T17:07:10.500Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109630487",
+      "userId": "usr_1788109630209",
+      "userName": "Integration Author",
+      "action": "POST_CREATE",
+      "actionBn": "নতুন পোস্ট তৈরি",
+      "details": "Safe Blog Post ",
+      "timestamp": "2026-08-30T17:07:10.487Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109630460",
+      "userId": "usr_1788109630209",
+      "userName": "Integration Author",
+      "action": "PASSWORD_RESET_SUCCESS",
+      "actionBn": "পাসওয়ার্ড সফলভাবে পরিবর্তিত",
+      "details": "Password reset completed for integration_author_1788109630116@example.com",
+      "timestamp": "2026-08-30T17:07:10.460Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109630379",
+      "userId": "usr_1788109630209",
+      "userName": "Integration Author",
+      "action": "PASSWORD_RESET_REQUEST",
+      "actionBn": "পাসওয়ার্ড রিসেট অনুরোধ",
+      "details": "Password reset token issued for integration_author_1788109630116@example.com",
+      "timestamp": "2026-08-30T17:07:10.379Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109630289",
+      "userId": "usr_1788109630209",
+      "userName": "Integration Author",
+      "action": "USER_LOGIN",
+      "actionBn": "ইউজার লগইন",
+      "details": "User logged in: integration_author_1788109630116@example.com",
+      "timestamp": "2026-08-30T17:07:10.289Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109630209",
+      "userId": "usr_1788109630209",
+      "userName": "Integration Author",
+      "action": "USER_REGISTER",
+      "actionBn": "নতুন ইউজার রেজিস্ট্রেশন",
+      "details": "User registered: integration_author_1788109630116@example.com",
+      "timestamp": "2026-08-30T17:07:10.209Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109604847",
+      "userId": "usr_1788109604531",
+      "userName": "integration_author_1788109604445@example.com",
+      "action": "POST_DELETE",
+      "actionBn": "পোস্ট মুছে ফেলা",
+      "details": "Updated Post Title",
+      "timestamp": "2026-08-30T17:06:44.847Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109604834",
+      "userId": "reader",
+      "userName": "Friendly Reader ",
+      "action": "COMMENT_ADD",
+      "actionBn": "নতুন মন্তব্য",
+      "details": "Post post_1788109604815: This is a genuine comment on the article",
+      "timestamp": "2026-08-30T17:06:44.834Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109604821",
+      "userId": "usr_1788109604531",
+      "userName": "integration_author_1788109604445@example.com",
+      "action": "POST_UPDATE",
+      "actionBn": "পোস্ট হালনাগাদ",
+      "details": "Updated Post Title",
+      "timestamp": "2026-08-30T17:06:44.821Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109604816",
+      "userId": "usr_1788109604531",
+      "userName": "Integration Author",
+      "action": "POST_CREATE",
+      "actionBn": "নতুন পোস্ট তৈরি",
+      "details": "Safe Blog Post ",
+      "timestamp": "2026-08-30T17:06:44.816Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109604788",
+      "userId": "usr_1788109604531",
+      "userName": "Integration Author",
+      "action": "PASSWORD_RESET_SUCCESS",
+      "actionBn": "পাসওয়ার্ড সফলভাবে পরিবর্তিত",
+      "details": "Password reset completed for integration_author_1788109604445@example.com",
+      "timestamp": "2026-08-30T17:06:44.788Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109604703",
+      "userId": "usr_1788109604531",
+      "userName": "Integration Author",
+      "action": "PASSWORD_RESET_REQUEST",
+      "actionBn": "পাসওয়ার্ড রিসেট অনুরোধ",
+      "details": "Password reset token issued for integration_author_1788109604445@example.com",
+      "timestamp": "2026-08-30T17:06:44.703Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109604618",
+      "userId": "usr_1788109604531",
+      "userName": "Integration Author",
+      "action": "USER_LOGIN",
+      "actionBn": "ইউজার লগইন",
+      "details": "User logged in: integration_author_1788109604445@example.com",
+      "timestamp": "2026-08-30T17:06:44.618Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109604531",
+      "userId": "usr_1788109604531",
+      "userName": "Integration Author",
+      "action": "USER_REGISTER",
+      "actionBn": "নতুন ইউজার রেজিস্ট্রেশন",
+      "details": "User registered: integration_author_1788109604445@example.com",
+      "timestamp": "2026-08-30T17:06:44.531Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109594688",
+      "userId": "usr_1788109594369",
+      "userName": "integration_author_1788109594278@example.com",
+      "action": "POST_DELETE",
+      "actionBn": "পোস্ট মুছে ফেলা",
+      "details": "Updated Post Title",
+      "timestamp": "2026-08-30T17:06:34.688Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109594672",
+      "userId": "reader",
+      "userName": "Friendly Reader ",
+      "action": "COMMENT_ADD",
+      "actionBn": "নতুন মন্তব্য",
+      "details": "Post post_1788109594649: This is a genuine comment on the article",
+      "timestamp": "2026-08-30T17:06:34.672Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109594654",
+      "userId": "usr_1788109594369",
+      "userName": "integration_author_1788109594278@example.com",
+      "action": "POST_UPDATE",
+      "actionBn": "পোস্ট হালনাগাদ",
+      "details": "Updated Post Title",
+      "timestamp": "2026-08-30T17:06:34.654Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109594649",
+      "userId": "usr_1788109594369",
+      "userName": "Integration Author",
+      "action": "POST_CREATE",
+      "actionBn": "নতুন পোস্ট তৈরি",
+      "details": "Safe Blog Post ",
+      "timestamp": "2026-08-30T17:06:34.649Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109594622",
+      "userId": "usr_1788109594369",
+      "userName": "Integration Author",
+      "action": "PASSWORD_RESET_SUCCESS",
+      "actionBn": "পাসওয়ার্ড সফলভাবে পরিবর্তিত",
+      "details": "Password reset completed for integration_author_1788109594278@example.com",
+      "timestamp": "2026-08-30T17:06:34.622Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109594542",
+      "userId": "usr_1788109594369",
+      "userName": "Integration Author",
+      "action": "PASSWORD_RESET_REQUEST",
+      "actionBn": "পাসওয়ার্ড রিসেট অনুরোধ",
+      "details": "Password reset token issued for integration_author_1788109594278@example.com",
+      "timestamp": "2026-08-30T17:06:34.542Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109594454",
+      "userId": "usr_1788109594369",
+      "userName": "Integration Author",
+      "action": "USER_LOGIN",
+      "actionBn": "ইউজার লগইন",
+      "details": "User logged in: integration_author_1788109594278@example.com",
+      "timestamp": "2026-08-30T17:06:34.454Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109594369",
+      "userId": "usr_1788109594369",
+      "userName": "Integration Author",
+      "action": "USER_REGISTER",
+      "actionBn": "নতুন ইউজার রেজিস্ট্রেশন",
+      "details": "User registered: integration_author_1788109594278@example.com",
+      "timestamp": "2026-08-30T17:06:34.369Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109550672",
+      "userId": "usr_1788109550298",
+      "userName": "integration_author_1788109550206@example.com",
+      "action": "POST_DELETE",
+      "actionBn": "পোস্ট মুছে ফেলা",
+      "details": "Updated Post Title",
+      "timestamp": "2026-08-30T17:05:50.672Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109550644",
+      "userId": "reader",
+      "userName": "Friendly Reader ",
+      "action": "COMMENT_ADD",
+      "actionBn": "নতুন মন্তব্য",
+      "details": "Post post_1788109550608: This is a genuine comment on the article",
+      "timestamp": "2026-08-30T17:05:50.644Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109550618",
+      "userId": "usr_1788109550298",
+      "userName": "integration_author_1788109550206@example.com",
+      "action": "POST_UPDATE",
+      "actionBn": "পোস্ট হালনাগাদ",
+      "details": "Updated Post Title",
+      "timestamp": "2026-08-30T17:05:50.618Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109550608",
+      "userId": "usr_1788109550298",
+      "userName": "Integration Author",
+      "action": "POST_CREATE",
+      "actionBn": "নতুন পোস্ট তৈরি",
+      "details": "Safe Blog Post ",
+      "timestamp": "2026-08-30T17:05:50.608Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109550573",
+      "userId": "usr_1788109550298",
+      "userName": "Integration Author",
+      "action": "PASSWORD_RESET_SUCCESS",
+      "actionBn": "পাসওয়ার্ড সফলভাবে পরিবর্তিত",
+      "details": "Password reset completed for integration_author_1788109550206@example.com",
+      "timestamp": "2026-08-30T17:05:50.573Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109550484",
+      "userId": "usr_1788109550298",
+      "userName": "Integration Author",
+      "action": "PASSWORD_RESET_REQUEST",
+      "actionBn": "পাসওয়ার্ড রিসেট অনুরোধ",
+      "details": "Password reset token issued for integration_author_1788109550206@example.com",
+      "timestamp": "2026-08-30T17:05:50.484Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109550380",
+      "userId": "usr_1788109550298",
+      "userName": "Integration Author",
+      "action": "USER_LOGIN",
+      "actionBn": "ইউজার লগইন",
+      "details": "User logged in: integration_author_1788109550206@example.com",
+      "timestamp": "2026-08-30T17:05:50.380Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109550298",
+      "userId": "usr_1788109550298",
+      "userName": "Integration Author",
+      "action": "USER_REGISTER",
+      "actionBn": "নতুন ইউজার রেজিস্ট্রেশন",
+      "details": "User registered: integration_author_1788109550206@example.com",
+      "timestamp": "2026-08-30T17:05:50.298Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109518061",
+      "userId": "usr_1788109517673",
+      "userName": "integration_author_1788109517588@example.com",
+      "action": "POST_DELETE",
+      "actionBn": "পোস্ট মুছে ফেলা",
+      "details": "Updated Post Title",
+      "timestamp": "2026-08-30T17:05:18.061Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109518026",
+      "userId": "reader",
+      "userName": "Friendly Reader ",
+      "action": "COMMENT_ADD",
+      "actionBn": "নতুন মন্তব্য",
+      "details": "Post post_1788109517983: This is a genuine comment on the article",
+      "timestamp": "2026-08-30T17:05:18.026Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109517992",
+      "userId": "usr_1788109517673",
+      "userName": "integration_author_1788109517588@example.com",
+      "action": "POST_UPDATE",
+      "actionBn": "পোস্ট হালনাগাদ",
+      "details": "Updated Post Title",
+      "timestamp": "2026-08-30T17:05:17.992Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109517984",
+      "userId": "usr_1788109517673",
+      "userName": "Integration Author",
+      "action": "POST_CREATE",
+      "actionBn": "নতুন পোস্ট তৈরি",
+      "details": "Safe Blog Post ",
+      "timestamp": "2026-08-30T17:05:17.984Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109517938",
+      "userId": "usr_1788109517673",
+      "userName": "Integration Author",
+      "action": "PASSWORD_RESET_SUCCESS",
+      "actionBn": "পাসওয়ার্ড সফলভাবে পরিবর্তিত",
+      "details": "Password reset completed for integration_author_1788109517588@example.com",
+      "timestamp": "2026-08-30T17:05:17.938Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109517852",
+      "userId": "usr_1788109517673",
+      "userName": "Integration Author",
+      "action": "PASSWORD_RESET_REQUEST",
+      "actionBn": "পাসওয়ার্ড রিসেট অনুরোধ",
+      "details": "Password reset token issued for integration_author_1788109517588@example.com",
+      "timestamp": "2026-08-30T17:05:17.852Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109517756",
+      "userId": "usr_1788109517673",
+      "userName": "Integration Author",
+      "action": "USER_LOGIN",
+      "actionBn": "ইউজার লগইন",
+      "details": "User logged in: integration_author_1788109517588@example.com",
+      "timestamp": "2026-08-30T17:05:17.756Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109517673",
+      "userId": "usr_1788109517673",
+      "userName": "Integration Author",
+      "action": "USER_REGISTER",
+      "actionBn": "নতুন ইউজার রেজিস্ট্রেশন",
+      "details": "User registered: integration_author_1788109517588@example.com",
+      "timestamp": "2026-08-30T17:05:17.673Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109439242",
+      "userId": "usr_1788109438967",
+      "userName": "Integration Author",
+      "action": "PASSWORD_RESET_SUCCESS",
+      "actionBn": "পাসওয়ার্ড সফলভাবে পরিবর্তিত",
+      "details": "Password reset completed for integration_author_1788109438876@example.com",
+      "timestamp": "2026-08-30T17:03:59.242Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109439154",
+      "userId": "usr_1788109438967",
+      "userName": "Integration Author",
+      "action": "PASSWORD_RESET_REQUEST",
+      "actionBn": "পাসওয়ার্ড রিসেট অনুরোধ",
+      "details": "Password reset token issued for integration_author_1788109438876@example.com",
+      "timestamp": "2026-08-30T17:03:59.154Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109439052",
+      "userId": "usr_1788109438967",
+      "userName": "Integration Author",
+      "action": "USER_LOGIN",
+      "actionBn": "ইউজার লগইন",
+      "details": "User logged in: integration_author_1788109438876@example.com",
+      "timestamp": "2026-08-30T17:03:59.052Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109438968",
+      "userId": "usr_1788109438967",
+      "userName": "Integration Author",
+      "action": "USER_REGISTER",
+      "actionBn": "নতুন ইউজার রেজিস্ট্রেশন",
+      "details": "User registered: integration_author_1788109438876@example.com",
+      "timestamp": "2026-08-30T17:03:58.968Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109371691",
+      "userId": "usr_1788109371387",
+      "userName": "Integration Author",
+      "action": "PASSWORD_RESET_SUCCESS",
+      "actionBn": "পাসওয়ার্ড সফলভাবে পরিবর্তিত",
+      "details": "Password reset completed for integration_author_1788109371300@example.com",
+      "timestamp": "2026-08-30T17:02:51.691Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109371575",
+      "userId": "usr_1788109371387",
+      "userName": "Integration Author",
+      "action": "PASSWORD_RESET_REQUEST",
+      "actionBn": "পাসওয়ার্ড রিসেট অনুরোধ",
+      "details": "Password reset token issued for integration_author_1788109371300@example.com",
+      "timestamp": "2026-08-30T17:02:51.575Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109371476",
+      "userId": "usr_1788109371387",
+      "userName": "Integration Author",
+      "action": "USER_LOGIN",
+      "actionBn": "ইউজার লগইন",
+      "details": "User logged in: integration_author_1788109371300@example.com",
+      "timestamp": "2026-08-30T17:02:51.476Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109371387",
+      "userId": "usr_1788109371387",
+      "userName": "Integration Author",
+      "action": "USER_REGISTER",
+      "actionBn": "নতুন ইউজার রেজিস্ট্রেশন",
+      "details": "User registered: integration_author_1788109371300@example.com",
+      "timestamp": "2026-08-30T17:02:51.387Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109286997",
+      "userId": "usr_1788109286702",
+      "userName": "Integration Author",
+      "action": "PASSWORD_RESET_SUCCESS",
+      "actionBn": "পাসওয়ার্ড সফলভাবে পরিবর্তিত",
+      "details": "Password reset completed for integration_author_1788109286609@example.com",
+      "timestamp": "2026-08-30T17:01:26.997Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109286905",
+      "userId": "usr_1788109286702",
+      "userName": "Integration Author",
+      "action": "PASSWORD_RESET_REQUEST",
+      "actionBn": "পাসওয়ার্ড রিসেট অনুরোধ",
+      "details": "Password reset token issued for integration_author_1788109286609@example.com",
+      "timestamp": "2026-08-30T17:01:26.905Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109286800",
+      "userId": "usr_1788109286702",
+      "userName": "Integration Author",
+      "action": "USER_LOGIN",
+      "actionBn": "ইউজার লগইন",
+      "details": "User logged in: integration_author_1788109286609@example.com",
+      "timestamp": "2026-08-30T17:01:26.800Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788109286702",
+      "userId": "usr_1788109286702",
+      "userName": "Integration Author",
+      "action": "USER_REGISTER",
+      "actionBn": "নতুন ইউজার রেজিস্ট্রেশন",
+      "details": "User registered: integration_author_1788109286609@example.com",
+      "timestamp": "2026-08-30T17:01:26.702Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1788020431563",
+      "userId": "usr_1788020431563",
+      "userName": "Test Author",
+      "action": "USER_REGISTER",
+      "actionBn": "নতুন একাউন্ট নিবন্ধন",
+      "details": "author_test@example.com",
+      "timestamp": "2026-08-29T16:20:31.563Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1787822513266",
+      "userId": "usr_1787561633296",
+      "userName": "Sohelmolla admin",
+      "action": "PROFILE_UPDATE",
+      "actionBn": "প্রোফাইল তথ্য আপডেট",
+      "details": "User updated profile fields",
+      "timestamp": "2026-08-27T09:21:53.266Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1787808927462",
+      "userId": "usr_1787561633296",
+      "userName": "Sohelmolla admin",
+      "action": "PROFILE_UPDATE",
+      "actionBn": "প্রোফাইল তথ্য আপডেট",
+      "details": "User updated profile fields",
+      "timestamp": "2026-08-27T05:35:27.462Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1787583440502",
+      "userId": "usr_1787583440502",
+      "userName": "Audit User",
+      "action": "USER_REGISTER",
+      "actionBn": "নতুন একাউন্ট নিবন্ধন",
+      "details": "audituser_new@example.com",
+      "timestamp": "2026-08-24T14:57:20.502Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1787564234858",
+      "userId": "usr_1787564234858",
+      "userName": "Test Reader",
+      "action": "USER_REGISTER",
+      "actionBn": "নতুন একাউন্ট নিবন্ধন",
+      "details": "reader_test_1787564234727@example.com",
+      "timestamp": "2026-08-24T09:37:14.858Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1787563793623",
+      "userId": "usr_1787561633296",
+      "userName": "Sohelmolla admin",
+      "action": "USER_LOGIN",
+      "actionBn": "লগইন সফল",
+      "details": "websiteai583@gmail.com (reader)",
+      "timestamp": "2026-08-24T09:29:53.623Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1787561633296",
+      "userId": "usr_1787561633296",
+      "userName": "Sohelmolla admin",
+      "action": "USER_REGISTER",
+      "actionBn": "নতুন একাউন্ট নিবন্ধন",
+      "details": "websiteai583@gmail.com",
+      "timestamp": "2026-08-24T08:53:53.296Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1787561398720",
+      "userId": "usr_tanvir",
+      "userName": "তানভীর আহমেদ (Tanvir Ahmed)",
+      "action": "USER_LOGIN",
+      "actionBn": "লগইন সফল",
+      "details": "tanvir@blogge.io (editor)",
+      "timestamp": "2026-08-24T08:49:58.720Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1787472570277",
+      "userId": "usr_author",
+      "userName": "রাফিদ হাসান (Rafid Hasan)",
+      "action": "AVATAR_REMOVE",
+      "actionBn": "প্রোফাইল ছবি অপসারণ",
+      "details": "Profile photo reset to default",
+      "timestamp": "2026-08-23T08:09:30.277Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1787471975160",
+      "userId": "usr_admin",
+      "userName": "তানভীর আহমেদ (Tanvir Ahmed)",
+      "action": "PROFILE_UPDATE",
+      "actionBn": "প্রোফাইল তথ্য আপডেট",
+      "details": "User updated profile fields",
+      "timestamp": "2026-08-23T07:59:35.160Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1787471906969",
+      "userId": "usr_admin",
+      "userName": "তানভীর আহমেদ (Tanvir Ahmed)",
+      "action": "PROFILE_UPDATE",
+      "actionBn": "প্রোফাইল তথ্য আপডেট",
+      "details": "User updated profile fields",
+      "timestamp": "2026-08-23T07:58:26.969Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1787471881516",
+      "userId": "usr_admin",
+      "userName": "তানভীর আহমেদ (Tanvir Ahmed)",
+      "action": "PROFILE_UPDATE",
+      "actionBn": "প্রোফাইল তথ্য আপডেট",
+      "details": "User updated profile fields",
+      "timestamp": "2026-08-23T07:58:01.516Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "log_1",
+      "userId": "usr_admin",
+      "userName": "তানভীর আহমেদ",
+      "action": "POST_PUBLISHED",
+      "actionBn": "নতুন পোস্ট প্রকাশিত",
+      "details": "২০২৬ সালে কৃত্রিম বুদ্ধিমত্তা ও জেনারেটিভ এআই বিপ্লব",
+      "timestamp": "2026-08-15T10:30:00Z",
+      "ipAddress": "103.145.12.88"
+    },
+    {
+      "id": "log_2",
+      "userId": "usr_admin",
+      "userName": "তানভীর আহমেদ",
+      "action": "SETTINGS_UPDATE",
+      "actionBn": "সাইট সেটিংস আপডেট",
+      "details": "গুগল অ্যাডসেন্স পাবলিশার আইডি কনফিগার করা হয়েছে",
+      "timestamp": "2026-08-14T16:20:00Z",
+      "ipAddress": "103.145.12.88"
+    },
+    {
+      "id": "log_3",
+      "userId": "usr_editor",
+      "userName": "নুসরাত জাহান",
+      "action": "THEME_CUSTOMIZE",
+      "actionBn": "থিম পরিবর্তন",
+      "details": "Blogger Classic থিম সক্রিয় করা হয়েছে",
+      "timestamp": "2026-08-12T08:10:00Z",
+      "ipAddress": "103.111.45.19"
+    }
+  ],
+  "subscribers": [
+    {
+      "id": "sub_1",
+      "email": "reader1@example.com",
+      "subscribedAt": "2026-08-10",
+      "isActive": true
+    },
+    {
+      "id": "sub_2",
+      "email": "techfan@gmail.com",
+      "subscribedAt": "2026-08-12",
+      "isActive": true
+    },
+    {
+      "id": "sub_3",
+      "email": "banglablogger@yahoo.com",
+      "subscribedAt": "2026-08-15",
+      "isActive": true
+    }
+  ],
+  "chatMessages": [
+    {
+      "id": "msg_init_1",
+      "sender": "admin",
+      "senderName": "সাপোর্ট টিম (Blogge Helpdesk)",
+      "text": "আসসালামু আলাইকুম! Blogge প্ল্যাটফর্মে আপনাকে স্বাগতম। আপনার ব্লগ তৈরি বা কন্টেন্ট প্রকাশে কোনো সহায়তার প্রয়োজন হলে লিখুন।",
+      "timestamp": "10:00 AM"
+    }
+  ],
+  "donations": [
+    {
+      "id": "don_1",
+      "donorName": "মুনতাসির মাহমুদ (Muntasir)",
+      "donorEmail": "muntasir@gmail.com",
+      "amount": 500,
+      "currency": "BDT",
+      "paymentMethod": "bkash",
+      "transactionId": "BK9A72X81Q",
+      "reference": "Coffee Treat",
+      "status": "completed",
+      "isAnonymous": false,
+      "message": "অসাধারণ সব বাংলা কন্টেন্ট লেখার জন্য অনেক ধন্যবাদ!",
+      "receiptNumber": "RCPT-2026-8819",
+      "createdAt": "2026-08-20T14:22:00Z"
+    },
+    {
+      "id": "don_2",
+      "donorName": "Anonymous Donor",
+      "donorEmail": "",
+      "amount": 1000,
+      "currency": "BDT",
+      "paymentMethod": "nagad",
+      "transactionId": "NG4B99182Z",
+      "reference": "Support",
+      "status": "verified",
+      "isAnonymous": true,
+      "message": "Keep rocking with technology articles!",
+      "receiptNumber": "RCPT-2026-8820",
+      "createdAt": "2026-08-21T09:15:00Z"
+    }
+  ],
+  "payments": [
+    {
+      "id": "pay_1",
+      "userId": "usr_author",
+      "userEmail": "rafid@blogge.io",
+      "planId": "pro_monthly",
+      "planName": "Blogger Pro VIP Membership",
+      "amount": 9.99,
+      "currency": "USD",
+      "status": "paid",
+      "paymentMethod": "stripe",
+      "transactionId": "ch_3N84x92819827391",
+      "invoiceNumber": "INV-2026-0041",
+      "createdAt": "2026-08-10T12:00:00Z"
+    }
+  ],
+  "campaigns": [
+    {
+      "id": "camp_1",
+      "subject": "২০২৬ সালের সেরা টেক ব্লগ সামারি ও বিশেষ এআই গাইড",
+      "content": "প্রিয় পাঠক, এ সপ্তাহের সেরা টেকনোলজি আর্টিকেলের নির্বাচিত সংকলন আপনার জন্য...",
+      "sentAt": "2026-08-18T16:00:00Z",
+      "status": "sent",
+      "recipientCount": 1240,
+      "openRate": 48.5
+    }
+  ],
+  "analytics": {
+    "liveVisitors": 1,
+    "totalViews": 16964,
+    "totalVisitors": 13,
+    "avgReadingTime": "No data yet",
+    "bounceRate": "No data yet",
+    "deviceStats": {
+      "mobile": 5,
+      "desktop": 2,
+      "tablet": 0
+    },
+    "countries": [],
+    "trafficHistory": [
+      {
+        "date": "Aug 27",
+        "rawDate": "2026-08-27",
+        "views": 4,
+        "visitors": 7
+      },
+      {
+        "date": "Aug 29",
+        "rawDate": "2026-08-29",
+        "views": 0,
+        "visitors": 0
+      }
+    ],
+    "sessions": [
+      {
+        "sessionId": "sess_test_a_1787813798900",
+        "startedAt": "2026-08-27T06:56:38.942Z",
+        "lastSeen": "2026-08-27T06:56:46.889Z",
+        "device": "desktop",
+        "country": ""
+      },
+      {
+        "sessionId": "sess_test_c_postrestart_1787813806900",
+        "startedAt": "2026-08-27T06:56:46.903Z",
+        "lastSeen": "2026-08-27T06:56:46.903Z",
+        "device": "desktop",
+        "country": ""
+      },
+      {
+        "sessionId": "sess_1787810396066_tmtkd9r",
+        "startedAt": "2026-08-27T08:55:55.026Z",
+        "lastSeen": "2026-08-29T16:05:23.126Z",
+        "device": "mobile",
+        "country": ""
+      }
+    ],
+    "postViews": [
+      {
+        "sessionId": "sess_test_a_1787813798900",
+        "postId": "post_1",
+        "viewedAt": "2026-08-27T06:56:38.957Z"
+      },
+      {
+        "sessionId": "sess_test_a_1787813798900",
+        "postId": "post_2",
+        "viewedAt": "2026-08-27T06:56:38.964Z"
+      },
+      {
+        "sessionId": "sess_test_b_1787813798900",
+        "postId": "post_1",
+        "viewedAt": "2026-08-27T06:56:38.968Z"
+      }
+    ]
+  },
+  "readingLists": [
+    {
+      "id": "rl_init_1",
+      "userId": "usr_admin",
+      "postId": "post_1",
+      "savedAt": "2026-08-23T06:53:15.690Z"
+    },
+    {
+      "id": "rl_init_2",
+      "userId": "usr_admin",
+      "postId": "post_2",
+      "savedAt": "2026-08-23T06:53:15.690Z"
+    }
+  ],
+  "notifications": [
+    {
+      "id": "n1",
+      "title": "নতুন মন্তব্য এসেছে",
+      "message": "আপনার \"২০২৬ সালে কৃত্রিম বুদ্ধিমত্তা ও জেনারেটিভ এআই বিপ্লব\" আর্টিকেলে একটি নতুন মন্তব্য করা হয়েছে।",
+      "time": "৫ মিনিট আগে",
+      "read": false,
+      "type": "comment",
+      "targetId": "post_1"
+    },
+    {
+      "id": "n2",
+      "title": "নতুন সাবস্ক্রাইবার যোগ হয়েছেন!",
+      "message": "techfan@gmail.com আপনার নিউজলেটারে সাবস্ক্রাইব করেছেন।",
+      "time": "১ ঘণ্টা আগে",
+      "read": false,
+      "type": "subscriber"
+    },
+    {
+      "id": "n3",
+      "title": "নতুন ডোনেশন প্রাপ্তি",
+      "message": "মাহমুদুল হক এর কাছ থেকে ৫০০ BDT ডোনেশন ভেরিফাইড হয়েছে।",
+      "time": "৩ ঘণ্টা আগে",
+      "read": false,
+      "type": "donation"
+    },
+    {
+      "id": "n4",
+      "title": "গুগল সার্চ কনসোল ইনডেক্সিং সফল",
+      "message": "আপনার ব্লগের সকল সাইটম্যাপ সফলভাবে ইনডেক্স করা হয়েছে।",
+      "time": "গতকাল",
+      "read": true,
+      "type": "system"
+    }
+  ],
+  "followers": [
+    {
+      "id": "fol_1",
+      "authorId": "usr_admin",
+      "followerId": "usr_editor",
+      "followedAt": "2026-08-01"
+    },
+    {
+      "id": "fol_2",
+      "authorId": "usr_admin",
+      "followerId": "usr_author",
+      "followedAt": "2026-08-05"
+    }
+  ],
+  "likes": []
+}

@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Blogge</string>
+    <string name="title_activity_main">Blogge</string>
+    <string name="package_name">io.blogge.app</string>
+    <string name="custom_url_scheme">io.blogge.app</string>
+</resources>
