@@ -3,28 +3,11 @@ import { App as CapApp } from '@capacitor/app';
 import { StatusBar, Style } from '@capacitor/status-bar';
 import { SplashScreen } from '@capacitor/splash-screen';
 import { Browser } from '@capacitor/browser';
+import { getApiBaseUrl, resolveApiUrl, DEFAULT_PRODUCTION_API_URL } from './safeFetch';
 
-export const PRODUCTION_SERVER_URL = 'https://ais-pre-pzbpjh4puhyyswictfxr55-469359533093.asia-southeast1.run.app';
-
-export function getApiBaseUrl(): string {
-  if (import.meta.env.VITE_API_URL) {
-    return import.meta.env.VITE_API_URL.replace(/\/$/, '');
-  }
-  if (Capacitor.isNativePlatform()) {
-    return PRODUCTION_SERVER_URL;
-  }
-  return '';
-}
-
-export function formatApiUrl(path: string): string {
-  if (!path) return '';
-  if (path.startsWith('http://') || path.startsWith('https://') || path.startsWith('data:') || path.startsWith('blob:')) {
-    return path;
-  }
-  const base = getApiBaseUrl();
-  const normalizedPath = path.startsWith('/') ? path : `/${path}`;
-  return base ? `${base}${normalizedPath}` : normalizedPath;
-}
+export const PRODUCTION_SERVER_URL = DEFAULT_PRODUCTION_API_URL;
+export { getApiBaseUrl, resolveApiUrl };
+export const formatApiUrl = resolveApiUrl;
 
 /**
  * Initializes Capacitor Network and Native device handlers:

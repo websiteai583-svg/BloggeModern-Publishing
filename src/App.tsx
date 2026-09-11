@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AppProvider, useApp } from './context/AppContext';
 import { Navbar } from './components/Navbar';
 import { Sidebar } from './components/Sidebar';
@@ -7,6 +7,7 @@ import { DonationModal } from './components/DonationModal';
 import { LiveSupportChat } from './components/LiveSupportChat';
 import { DashboardErrorBoundary } from './components/DashboardErrorBoundary';
 import { initCapacitorApp } from './utils/capacitorApp';
+import { WifiOff, AlertCircle, RefreshCw } from 'lucide-react';
 
 // Reader Views
 import { ReaderView } from './components/ReaderView';
@@ -34,8 +35,23 @@ const MainContent: React.FC = () => {
     selectedPostSlug,
     setSelectedPostSlug,
     selectedPageSlug,
-    setSelectedPageSlug
+    setSelectedPageSlug,
+    isOnline,
+    isServerReachable,
+    retryConnection,
+    language
   } = useApp();
+
+  const [isRetrying, setIsRetrying] = useState(false);
+
+  const handleRetry = async () => {
+    setIsRetrying(true);
+    try {
+      await retryConnection();
+    } finally {
+      setTimeout(() => setIsRetrying(false), 500);
+    }
+  };
 
   useEffect(() => {
     initCapacitorApp({
@@ -88,6 +104,41 @@ const MainContent: React.FC = () => {
 
       {/* Top Universal Navbar */}
       <Navbar />
+
+      {/* Offline & Connectivity Reconnect Notice */}
+      {(!isOnline || !isServerReachable) && (
+        <div 
+          id="network-reconnect-notice"
+          className={`w-full py-2.5 px-4 text-xs font-semibold flex items-center justify-between transition-colors duration-200 border-b ${
+            !isOnline
+              ? 'bg-amber-500/15 border-amber-500/30 text-amber-300'
+              : 'bg-rose-500/15 border-rose-500/30 text-rose-300'
+          }`}
+        >
+          <div className="flex items-center gap-2 max-w-xl">
+            {!isOnline ? (
+              <WifiOff className="w-4 h-4 shrink-0 text-amber-400 animate-pulse" />
+            ) : (
+              <AlertCircle className="w-4 h-4 shrink-0 text-rose-400 animate-pulse" />
+            )}
+            <span>
+              {!isOnline
+                ? (language === 'bn' ? 'আপনি বর্তমানে অফলাইনে আছেন। সংরক্ষিত তথ্য প্রদর্শিত হচ্ছে।' : 'You are currently offline. Displaying cached content.')
+                : (language === 'bn' ? 'সার্ভারে সংযোগ করা যাচ্ছে না। আপনার ইন্টারনেট চেক করুন।' : 'Unable to connect to backend server. Cached content remains active.')}
+            </span>
+          </div>
+
+          <button
+            id="btn-reconnect-retry"
+            onClick={handleRetry}
+            disabled={isRetrying}
+            className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/10 hover:bg-white/20 active:scale-95 transition text-white border border-white/10"
+          >
+            <RefreshCw className={`w-3.5 h-3.5 ${isRetrying ? 'animate-spin text-indigo-400' : ''}`} />
+            <span>{language === 'bn' ? 'পুনরায় চেষ্টা' : 'Retry'}</span>
+          </button>
+        </div>
+      )}
 
       {/* Primary View Routing */}
       {viewMode === 'reader' && <ReaderView />}

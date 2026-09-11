@@ -211,14 +211,34 @@ assert(!performPasswordReset(expiredUser, rawResetToken, 'NewPass').success, 'Ex
 // -------------------------------------------------------------
 console.log('\n--- 4. CORS Hardening Tests ---');
 
+const CAPACITOR_NATIVE_ORIGINS = [
+  'https://localhost',
+  'http://localhost',
+  'capacitor://localhost',
+  'ionic://localhost'
+];
+
 function checkCorsOrigin(origin: string | undefined, allowedList: string[], isProd: boolean): { allowed: boolean; sendWildcard: boolean } {
   if (!origin) return { allowed: true, sendWildcard: false };
+  
+  if (CAPACITOR_NATIVE_ORIGINS.includes(origin)) {
+    return { allowed: true, sendWildcard: false };
+  }
+
+  if (/^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin)) {
+    return { allowed: true, sendWildcard: false };
+  }
+
+  if (origin.startsWith('capacitor://') || origin.startsWith('ionic://')) {
+    return { allowed: true, sendWildcard: false };
+  }
+
   if (isProd) {
     const isAllowed = allowedList.includes(origin);
     return { allowed: isAllowed, sendWildcard: false };
   }
   // Dev mode
-  if (origin.includes('localhost') || origin.includes('127.0.0.1') || origin.endsWith('.run.app')) {
+  if (origin.endsWith('.run.app')) {
     return { allowed: true, sendWildcard: false };
   }
   return { allowed: allowedList.includes(origin), sendWildcard: false };
@@ -229,7 +249,11 @@ const prodOrigins = ['https://blogge.io', 'https://www.blogge.io'];
 assert(checkCorsOrigin('https://blogge.io', prodOrigins, true).allowed, 'Allowed production origin is accepted');
 assert(!checkCorsOrigin('https://evil-hacker.com', prodOrigins, true).allowed, 'Unauthorized production origin is rejected');
 assert(!checkCorsOrigin('https://blogge.io', prodOrigins, true).sendWildcard, 'Production never sends wildcard Access-Control-Allow-Origin: *');
-assert(checkCorsOrigin('http://localhost:3000', prodOrigins, false).allowed, 'Localhost allowed in development mode');
+assert(checkCorsOrigin('https://localhost', [], true).allowed, 'Capacitor Android origin (https://localhost) allowed in production even with empty ALLOWED_ORIGINS');
+assert(checkCorsOrigin('capacitor://localhost', [], true).allowed, 'Capacitor native origin (capacitor://localhost) allowed in production');
+assert(checkCorsOrigin('ionic://localhost', [], true).allowed, 'Ionic origin (ionic://localhost) allowed in production');
+assert(checkCorsOrigin('http://localhost', [], true).allowed, 'Localhost origin allowed in production');
+assert(checkCorsOrigin('http://localhost:3000', prodOrigins, false).allowed, 'Localhost with port allowed in development mode');
 
 // -------------------------------------------------------------
 // 5. DOMPURIFY XSS SANITIZATION TESTS

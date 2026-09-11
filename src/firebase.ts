@@ -62,6 +62,10 @@ export function formatFirebaseAuthError(errorCode?: string, defaultMsg = 'Google
       return 'Network error occurred. Please check your internet connection.';
     case 'auth/account-exists-with-different-credential':
       return 'An account already exists with the same email using a different sign-in method.';
+    case 'auth/operation-not-supported-in-this-environment':
+      return 'Google popup is not supported in this mobile webview. Using redirect flow.';
+    case 'auth/invalid-credential':
+      return 'The Google credential provided is invalid or has expired.';
     case 'auth/user-disabled':
       return 'This user account has been disabled.';
     default:
@@ -134,8 +138,8 @@ export async function loginWithGoogleFirebase(): Promise<{
   } catch (err: any) {
     console.warn('Firebase Google popup attempt warning:', err);
     
-    // On mobile if popup is blocked, attempt redirect flow
-    if (err?.code === 'auth/popup-blocked') {
+    // On mobile webview or when popups are blocked, attempt redirect flow
+    if (err?.code === 'auth/popup-blocked' || err?.code === 'auth/operation-not-supported-in-this-environment') {
       try {
         await signInWithRedirect(auth, googleProvider);
         return {

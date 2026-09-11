@@ -7,7 +7,8 @@ import { GoogleGenAI } from "@google/genai";
 import dotenv from "dotenv";
 import multer from "multer";
 import { v2 as cloudinary } from "cloudinary";
-import { getDb, saveDatabase, logActivity, initDatabase } from "./server/db";
+import { getDb, saveDatabase, logActivity, initDatabase, ensureDatabaseReady } from "./server/db";
+import { isPostgresConfigured, isPostgresConnected, closePostgresPool } from "./server/postgres";
 import { sanitizeHtml, sanitizeCss } from "./server/sanitizer";
 
 dotenv.config();
@@ -21,50 +22,48 @@ const FIREBASE_PROJECT_ID = (process.env.FIREBASE_PROJECT_ID || process.env.VITE
 
 // Startup Validation for Production Mode
 function validateProductionEnvironment(): void {
-  const errors: string[] = [];
+  const warnings: string[] = [];
 
   if (isProduction) {
-    if (!process.env.ADMIN_EMAIL || process.env.ADMIN_EMAIL.trim().length === 0) {
-      errors.push("ADMIN_EMAIL is required in production mode.");
+    if (!isPostgresConfigured()) {
+      const errorMsg = 
+        "[FATAL PRODUCTION CONFIGURATION ERROR] DATABASE_URL is missing!\n" +
+        "Cloud Run containers are ephemeral and stateless. Running on ephemeral\n" +
+        "local JSON storage (/data/db.json) is strictly prohibited in production mode.\n" +
+        "The server will refuse to start without a valid PostgreSQL DATABASE_URL.\n" +
+        "Please provide DATABASE_URL in your Cloud Run service environment variables.";
+      console.error("\n================================================================================");
+      console.error(errorMsg);
+      console.error("================================================================================\n");
+      throw new Error(errorMsg);
     }
     if (!process.env.SESSION_SECRET || process.env.SESSION_SECRET.trim().length === 0) {
-      errors.push("SESSION_SECRET is required in production mode.");
+      const errorMsg = 
+        "[FATAL PRODUCTION CONFIGURATION ERROR] SESSION_SECRET is missing!\n" +
+        "Production authentication requires an explicit, cryptographically secure SESSION_SECRET\n" +
+        "configured in Cloud Run environment variables (at least 32 characters).\n" +
+        "Please provide SESSION_SECRET in your Cloud Run service environment variables.";
+      console.error("\n================================================================================");
+      console.error(errorMsg);
+      console.error("================================================================================\n");
+      throw new Error(errorMsg);
+    }
+    if (!process.env.ADMIN_EMAIL || process.env.ADMIN_EMAIL.trim().length === 0) {
+      warnings.push("ADMIN_EMAIL is not explicitly set; defaulting to websiteai583@gmail.com.");
     }
     if (!FIREBASE_PROJECT_ID) {
-      errors.push("FIREBASE_PROJECT_ID is required in production mode.");
+      warnings.push("FIREBASE_PROJECT_ID is not configured; local storage fallback will be used.");
     }
     if (!process.env.GEMINI_API_KEY || process.env.GEMINI_API_KEY.trim().length === 0) {
-      errors.push("GEMINI_API_KEY is required in production mode.");
-    }
-    if (!process.env.ALLOWED_ORIGINS || process.env.ALLOWED_ORIGINS.trim().length === 0) {
-      errors.push("ALLOWED_ORIGINS is required in production mode.");
-    }
-    if (!process.env.RESEND_API_KEY || process.env.RESEND_API_KEY.trim().length === 0) {
-      errors.push("RESEND_API_KEY is required in production mode for transactional email delivery.");
-    }
-    if (!process.env.EMAIL_FROM || process.env.EMAIL_FROM.trim().length === 0) {
-      errors.push("EMAIL_FROM is required in production mode.");
-    }
-    if (!process.env.APP_URL || process.env.APP_URL.trim().length === 0) {
-      errors.push("APP_URL is required in production mode.");
+      warnings.push("GEMINI_API_KEY is not set; AI assist routes will operate in fallback mode.");
     }
   }
 
-  if (errors.length > 0) {
-    console.error("==================================================");
-    console.error("FATAL: PRODUCTION CONFIGURATION VALIDATION FAILED:");
-    errors.forEach(err => console.error(`  - ${err}`));
-    console.error("==================================================");
-    if (isProduction) {
-      throw new Error(`Production Configuration Error: ${errors.join(", ")}`);
-    }
+  if (warnings.length > 0) {
+    console.log("[Config] Server startup notices:");
+    warnings.forEach(warn => console.log(`  - ${warn}`));
   } else {
-    console.log("[Config] Configuration validated successfully. Production Mode:", isProduction);
-    if (RESEND_API_KEY) {
-      console.log("[Email] Transactional email provider (Resend) active for password reset.");
-    } else {
-      console.log("[Email] Resend API key not set - development fallback mode active.");
-    }
+    console.log("[Config] Configuration validated. Production Mode:", isProduction);
   }
 }
 
@@ -75,10 +74,7 @@ const getSessionSecret = (): string => {
   if (process.env.SESSION_SECRET && process.env.SESSION_SECRET.trim().length > 0) {
     return process.env.SESSION_SECRET.trim();
   }
-  if (isProduction) {
-    throw new Error("FATAL: SESSION_SECRET environment variable is required in production mode.");
-  }
-  // In dev/container mode, persist secret to file so restarts don't invalidate sessions
+  // Persist secret to file so restarts don't invalidate sessions
   try {
     const secretPath = path.join(process.cwd(), 'data', '.session_secret');
     if (fs.existsSync(secretPath)) {
@@ -138,6 +134,17 @@ setInterval(() => {
 // ==========================================
 // CORS Configuration & Validation
 // ==========================================
+// CORS Configuration & Validation
+// Capacitor native mobile origins always permitted (in both production & development):
+// https://localhost, http://localhost, capacitor://localhost, ionic://localhost
+// ==========================================
+const CAPACITOR_NATIVE_ORIGINS = [
+  'https://localhost',
+  'http://localhost',
+  'capacitor://localhost',
+  'ionic://localhost'
+];
+
 function getAllowedOrigins(): string[] {
   const envOrigins = process.env.ALLOWED_ORIGINS
     ? process.env.ALLOWED_ORIGINS.split(',').map(s => s.trim()).filter(Boolean)
@@ -149,13 +156,11 @@ function getAllowedOrigins(): string[] {
       'http://localhost:3000',
       'http://127.0.0.1:3000',
       'http://localhost:5173',
-      'http://127.0.0.1:5173',
-      'capacitor://localhost',
-      'https://localhost'
+      'http://127.0.0.1:5173'
     ];
-    return Array.from(new Set([...envOrigins, ...devDefaults]));
+    return Array.from(new Set([...envOrigins, ...devDefaults, ...CAPACITOR_NATIVE_ORIGINS]));
   }
-  return envOrigins;
+  return Array.from(new Set([...envOrigins, ...CAPACITOR_NATIVE_ORIGINS]));
 }
 
 function isOriginAllowed(origin: string | undefined): boolean {
@@ -163,15 +168,24 @@ function isOriginAllowed(origin: string | undefined): boolean {
     // Allow same-origin or non-browser server-to-server requests
     return true;
   }
-  const allowed = getAllowedOrigins();
-  
-  if (!isProduction) {
-    // Allow *.run.app and localhost in development environment
-    if (/^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin)) return true;
-    if (origin.endsWith('.run.app')) return true;
-    if (origin.startsWith('capacitor://') || origin.startsWith('http://localhost')) return true;
+
+  // Capacitor native mobile origins are always permitted:
+  if (CAPACITOR_NATIVE_ORIGINS.includes(origin)) {
+    return true;
   }
 
+  // Also support localhost with ports (e.g. http://localhost:3000, https://localhost:8080)
+  if (/^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin)) {
+    return true;
+  }
+  if (origin.startsWith('capacitor://') || origin.startsWith('ionic://')) {
+    return true;
+  }
+
+  // Allow Google Cloud Run domains (*.run.app)
+  if (origin.endsWith('.run.app')) return true;
+
+  const allowed = getAllowedOrigins();
   return allowed.includes(origin);
 }
 
@@ -650,7 +664,7 @@ function getLiveVisitorsCount(): number {
       activeSessions.delete(id);
     }
   }
-  return Math.max(1, count);
+  return count;
 }
 
 // Initial DB sanity & admin check
@@ -759,8 +773,11 @@ async function sendPasswordResetEmail(recipientEmail: string, resetToken: string
 }
 
 export async function createApp(options: { skipVite?: boolean } = {}) {
+  await ensureDatabaseReady();
   const app = express();
-  const PORT = 3000;
+  const PORT = (!process.env.CONTROL_PLANE_PORT && process.env.PORT) 
+    ? (Number(process.env.PORT) || 3000) 
+    : 3000;
 
   // Security Headers Middleware
   app.use((_req: Request, res: Response, next: express.NextFunction) => {
@@ -780,6 +797,7 @@ export async function createApp(options: { skipVite?: boolean } = {}) {
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
       "font-src 'self' https://fonts.gstatic.com data:; " +
       "img-src 'self' data: https: blob:; " +
+      "media-src 'self' https: blob: data:; " +
       "connect-src 'self' https: ws: wss:; " +
       "frame-src 'self' https://* http://localhost:* https://accounts.google.com;"
     );
@@ -912,8 +930,13 @@ export async function createApp(options: { skipVite?: boolean } = {}) {
 
   // Health check endpoint
   app.get("/api/health", (_req: Request, res: Response) => {
+    const isPg = isPostgresConnected();
     res.status(200).json({ 
       success: true,
+      status: "online",
+      environment: process.env.NODE_ENV || "production",
+      database: isPg ? "postgresql" : "local-json",
+      postgresConnected: isPg,
       service: "blogge-api",
       version: "profile-upload-v3",
       uploadRoute: true,
@@ -996,8 +1019,8 @@ export async function createApp(options: { skipVite?: boolean } = {}) {
     });
   });
 
-  // Full Admin DB sync endpoint
-  app.get("/api/admin/db", requireAdminAuth, (_req: Request, res: Response) => {
+  // Full Admin DB sync endpoint & aliases
+  const handleAdminDbSync = (_req: Request, res: Response) => {
     const db = getDb();
     const sanitizedUsers = (db.users || []).map((u: any) => {
       const { passwordHash: _, salt: __, resetTokenHash: ___, ...safe } = u;
@@ -1015,7 +1038,10 @@ export async function createApp(options: { skipVite?: boolean } = {}) {
         }
       }
     });
-  });
+  };
+
+  app.get("/api/admin/db", requireAdminAuth, handleAdminDbSync);
+  app.get("/api/db/init", requireAdminAuth, handleAdminDbSync);
 
   // ==========================================
   // ANALYTICS & STATS REST API
@@ -1031,7 +1057,7 @@ export async function createApp(options: { skipVite?: boolean } = {}) {
       success: true,
       liveVisitors: liveCount,
       totalViews: db.analytics.totalViews || calculatedTotalViews,
-      totalVisitors: db.analytics.totalVisitors || 1,
+      totalVisitors: db.analytics.totalVisitors ?? 0,
       avgReadingTime: db.analytics.avgReadingTime || "3.5 mins",
       bounceRate: db.analytics.bounceRate || "42%",
       deviceStats: db.analytics.deviceStats || { mobile: 1, desktop: 2, tablet: 0 },
@@ -1100,6 +1126,60 @@ export async function createApp(options: { skipVite?: boolean } = {}) {
       return res.status(404).json({ error: "Post not found" });
     }
     res.json({ success: true, post });
+  });
+
+  // Public Categories Discovery API
+  app.get("/api/categories", (_req: Request, res: Response) => {
+    const db = getDb();
+    const categoriesSet = new Set<string>();
+    (db.posts || []).forEach((p: any) => {
+      if (Array.isArray(p.categories)) {
+        p.categories.forEach((c: string) => categoriesSet.add(c));
+      }
+    });
+    const categories = Array.from(categoriesSet).map(name => ({
+      name,
+      slug: name.toLowerCase().replace(/\s+/g, '-'),
+      count: (db.posts || []).filter((p: any) => p.categories && p.categories.includes(name)).length
+    }));
+    res.json({ success: true, categories });
+  });
+
+  // Public Authors Discovery API
+  app.get("/api/authors", (_req: Request, res: Response) => {
+    const db = getDb();
+    const authorsMap = new Map<string, any>();
+    (db.users || []).filter((u: any) => u.role === 'admin' || u.role === 'author' || u.role === 'editor').forEach((u: any) => {
+      authorsMap.set(u.id, {
+        id: u.id,
+        name: u.name,
+        avatar: u.avatar || '',
+        bio: u.bio || '',
+        role: u.role
+      });
+    });
+    (db.posts || []).forEach((p: any) => {
+      if (p.author && p.author.id && !authorsMap.has(p.author.id)) {
+        authorsMap.set(p.author.id, p.author);
+      }
+    });
+    res.json({ success: true, authors: Array.from(authorsMap.values()) });
+  });
+
+  // Public Search API
+  app.get("/api/search", (req: Request, res: Response) => {
+    const db = getDb();
+    const q = String(req.query.q || req.query.query || '').toLowerCase().trim();
+    if (!q) {
+      return res.json({ success: true, query: '', posts: [], total: 0 });
+    }
+    const matchedPosts = (db.posts || []).filter((p: any) => 
+      (p.title && p.title.toLowerCase().includes(q)) || 
+      (p.summary && p.summary.toLowerCase().includes(q)) ||
+      (p.content && p.content.toLowerCase().includes(q)) ||
+      (p.tags && p.tags.some((t: string) => t.toLowerCase().includes(q)))
+    );
+    res.json({ success: true, query: q, posts: matchedPosts, total: matchedPosts.length });
   });
 
   app.post("/api/posts", requireAuthorOrAdmin, (req: Request, res: Response) => {
@@ -1594,15 +1674,49 @@ export async function createApp(options: { skipVite?: boolean } = {}) {
     res.status(201).json({ success: true, subscriber: newSub });
   });
 
+  app.post("/api/subscribers/campaign", requireAdminAuth, (req: Request, res: Response) => {
+    const db = getDb();
+    const { subject, content } = req.body;
+    if (!subject || !content) {
+      return res.status(400).json({ error: "Subject and content are required." });
+    }
+
+    const newCampaign = {
+      id: 'cmp_' + Date.now(),
+      subject: sanitizeHtml(subject),
+      content: sanitizeHtml(content),
+      sentAt: new Date().toISOString(),
+      recipientsCount: (db.subscribers || []).length
+    };
+
+    db.campaigns = db.campaigns || [];
+    db.campaigns.unshift(newCampaign);
+    saveDatabase();
+    res.status(201).json({ success: true, campaign: newCampaign });
+  });
+
+  app.get("/api/subscribers/export", requireAdminAuth, (_req: Request, res: Response) => {
+    const db = getDb();
+    const subscribers = db.subscribers || [];
+    let csv = 'ID,Email,SubscribedAt,Status\n';
+    subscribers.forEach((s: any) => {
+      csv += `"${s.id || ''}","${s.email || ''}","${s.subscribedAt || ''}","${s.isActive ? 'Active' : 'Inactive'}"\n`;
+    });
+
+    res.setHeader('Content-Type', 'text/csv');
+    res.setHeader('Content-Disposition', `attachment; filename="blogge-subscribers-${Date.now()}.csv"`);
+    res.send(csv);
+  });
+
   // ==========================================
   // LIVE SUPPORT CHAT REST API
   // ==========================================
-  app.get("/api/support/chat", (_req: Request, res: Response) => {
+  const handleGetChat = (_req: Request, res: Response) => {
     const db = getDb();
     res.json({ success: true, messages: db.chatMessages || [] });
-  });
+  };
 
-  app.post("/api/support/chat", (req: Request, res: Response) => {
+  const handlePostChat = (req: Request, res: Response) => {
     const db = getDb();
     const { sender, senderName, text } = req.body;
     if (!text || typeof text !== 'string') {
@@ -1624,6 +1738,176 @@ export async function createApp(options: { skipVite?: boolean } = {}) {
     if (db.chatMessages.length > 500) db.chatMessages = db.chatMessages.slice(-250);
     saveDatabase();
     res.status(201).json({ success: true, message: newMsg });
+  };
+
+  app.get("/api/support/chat", handleGetChat);
+  app.post("/api/support/chat", handlePostChat);
+  app.get("/api/chat", handleGetChat);
+  app.post("/api/chat", handlePostChat);
+
+  // ==========================================
+  // NOTIFICATIONS REST API
+  // ==========================================
+  app.get("/api/notifications", async (req: Request, res: Response) => {
+    const db = getDb();
+    const authUser = await getAuthenticatedUser(req);
+    const allNotifs = db.notifications || [];
+
+    // Filter to notifications targeted to this user or global broadcasts (no userId specified)
+    const userNotifs = allNotifs.filter((n: any) => {
+      if (!n.userId) return true; // Global notification
+      return authUser ? n.userId === authUser.id : false;
+    }).map((n: any) => ({
+      ...n,
+      read: Boolean(n.read ?? n.isRead),
+      isRead: Boolean(n.isRead ?? n.read)
+    }));
+
+    res.json({ success: true, notifications: userNotifs });
+  });
+
+  app.post("/api/notifications", async (req: Request, res: Response) => {
+    const db = getDb();
+    const authUser = await getAuthenticatedUser(req);
+    const { title, message, type = 'system', link, userId, targetId } = req.body;
+    const newNotif = {
+      id: 'notif_' + Date.now(),
+      title: title ? sanitizeHtml(title) : 'Notification',
+      message: message ? sanitizeHtml(message) : '',
+      type,
+      link: link || '',
+      userId: userId || authUser?.id || undefined,
+      targetId: targetId || undefined,
+      read: false,
+      isRead: false,
+      createdAt: new Date().toISOString()
+    };
+    db.notifications = db.notifications || [];
+    db.notifications.unshift(newNotif);
+    if (db.notifications.length > 500) db.notifications = db.notifications.slice(0, 500);
+    saveDatabase();
+    res.status(201).json({ success: true, notification: newNotif });
+  });
+
+  app.put("/api/notifications/read-all", async (req: Request, res: Response) => {
+    const db = getDb();
+    const authUser = await getAuthenticatedUser(req);
+    let count = 0;
+    db.notifications = (db.notifications || []).map((n: any) => {
+      if (!n.userId || (authUser && n.userId === authUser.id)) {
+        count++;
+        return { ...n, read: true, isRead: true };
+      }
+      return n;
+    });
+    saveDatabase();
+    res.json({ success: true, count });
+  });
+
+  app.put("/api/notifications/:id/read", async (req: Request, res: Response) => {
+    const db = getDb();
+    const authUser = await getAuthenticatedUser(req);
+    const target = (db.notifications || []).find((n: any) => n.id === req.params.id);
+    if (target) {
+      if (!target.userId || (authUser && target.userId === authUser.id) || authUser?.role === 'admin') {
+        target.read = true;
+        target.isRead = true;
+        saveDatabase();
+      }
+    }
+    res.json({ success: true });
+  });
+
+  app.delete("/api/notifications/:id", async (req: Request, res: Response) => {
+    const db = getDb();
+    const authUser = await getAuthenticatedUser(req);
+    db.notifications = (db.notifications || []).filter((n: any) => {
+      if (n.id !== req.params.id) return true;
+      // Allow deletion if owned by user or if user is admin
+      if (!n.userId || (authUser && n.userId === authUser.id) || authUser?.role === 'admin') {
+        return false;
+      }
+      return true;
+    });
+    saveDatabase();
+    res.json({ success: true });
+  });
+
+  app.delete("/api/notifications", async (req: Request, res: Response) => {
+    const db = getDb();
+    const authUser = await getAuthenticatedUser(req);
+    if (authUser) {
+      db.notifications = (db.notifications || []).filter((n: any) => n.userId && n.userId !== authUser.id);
+    } else {
+      // Clear global non-user notifications only
+      db.notifications = (db.notifications || []).filter((n: any) => Boolean(n.userId));
+    }
+    saveDatabase();
+    res.json({ success: true });
+  });
+
+  // ==========================================
+  // BACKUP EXPORT & BLOGGER IMPORT REST API
+  // ==========================================
+  app.get("/api/export/backup", requireAdminAuth, (_req: Request, res: Response) => {
+    const db = getDb();
+    const backupPayload = {
+      version: "1.2.0",
+      exportedAt: new Date().toISOString(),
+      database: db
+    };
+
+    res.setHeader('Content-Type', 'application/json');
+    res.setHeader('Content-Disposition', `attachment; filename="blogge-backup-${Date.now()}.json"`);
+    res.json(backupPayload);
+  });
+
+  app.post("/api/import/blogger", requireAdminAuth, (req: Request, res: Response) => {
+    const db = getDb();
+    const { xmlContent } = req.body;
+    if (!xmlContent || typeof xmlContent !== 'string') {
+      return res.status(400).json({ error: "XML content is required for Blogger import." });
+    }
+
+    // Basic Blogger XML entry parser
+    let importedCount = 0;
+    const entryMatches = xmlContent.match(/<entry[\s\S]*?<\/entry>/g) || [];
+
+    for (const entry of entryMatches) {
+      const titleMatch = entry.match(/<title[^>]*>([\s\S]*?)<\/title>/);
+      const contentMatch = entry.match(/<content[^>]*>([\s\S]*?)<\/content>/);
+      const publishedMatch = entry.match(/<published>([\s\S]*?)<\/published>/);
+
+      const title = titleMatch ? titleMatch[1].replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1').trim() : '';
+      const content = contentMatch ? contentMatch[1].replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1').trim() : '';
+      const publishedAt = publishedMatch ? publishedMatch[1].trim() : new Date().toISOString();
+
+      if (title && content) {
+        const slug = title.toLowerCase().replace(/[^a-z0-9\u0980-\u09FF]+/g, '-').replace(/(^-|-$)/g, '') + '-' + Math.floor(100 + Math.random() * 900);
+        const newPost = {
+          id: 'post_import_' + Date.now() + '_' + importedCount,
+          title: sanitizeHtml(title),
+          slug,
+          content: sanitizeHtml(content),
+          summary: sanitizeHtml(content.slice(0, 200)),
+          authorId: 'usr_admin',
+          authorName: 'Admin',
+          status: 'published',
+          publishedAt,
+          createdAt: publishedAt,
+          tags: ['Blogger Import'],
+          views: 0,
+          likes: 0,
+          commentCount: 0
+        };
+        db.posts = db.posts || [];
+        db.posts.unshift(newPost);
+        importedCount++;
+      }
+    }
+
+    saveDatabase();
+    res.json({ success: true, importedCount });
   });
 
   // ==========================================
@@ -1641,6 +1925,7 @@ export async function createApp(options: { skipVite?: boolean } = {}) {
       return res.status(400).json({ error: "Valid amount required" });
     }
 
+    const receiptNumber = `RCPT-${Date.now()}`;
     const newDonation = {
       id: 'don_' + Date.now(),
       donorName: donorName || 'Anonymous Supporter',
@@ -1650,13 +1935,37 @@ export async function createApp(options: { skipVite?: boolean } = {}) {
       message: message ? sanitizeHtml(message) : '',
       method: method || 'bKash',
       status: 'completed',
+      receiptNumber,
       createdAt: new Date().toISOString()
     };
 
     db.donations = db.donations || [];
     db.donations.unshift(newDonation);
     saveDatabase();
-    res.status(201).json({ success: true, donation: newDonation });
+    res.status(201).json({ success: true, donation: newDonation, receiptNumber });
+  });
+
+  app.put("/api/donations/:id/verify", requireAdminAuth, (req: Request, res: Response) => {
+    const db = getDb();
+    const target = (db.donations || []).find((d: any) => d.id === req.params.id);
+    if (!target) return res.status(404).json({ error: "Donation record not found" });
+
+    target.status = req.body.status || 'verified';
+    saveDatabase();
+    res.json({ success: true, donation: target });
+  });
+
+  app.post("/api/payments", (req: Request, res: Response) => {
+    const db = getDb();
+    const record = {
+      id: 'pay_' + Date.now(),
+      ...req.body,
+      createdAt: new Date().toISOString()
+    };
+    db.payments = db.payments || [];
+    db.payments.unshift(record);
+    saveDatabase();
+    res.status(201).json({ success: true, payment: record });
   });
 
   // ==========================================
@@ -1696,6 +2005,16 @@ export async function createApp(options: { skipVite?: boolean } = {}) {
     res.status(201).json({ success: true, saved: true, entry });
   });
 
+  app.delete("/api/reading-list/:postId", requireAuth, (req: Request, res: Response) => {
+    const db = getDb();
+    const authUser = (req as any).user;
+    const postId = req.params.postId;
+
+    db.readingLists = (db.readingLists || []).filter((r: any) => !(r.userId === authUser.id && r.postId === postId));
+    saveDatabase();
+    res.json({ success: true, saved: false, message: "Removed from reading list" });
+  });
+
   // ==========================================
   // FOLLOWERS REST API
   // ==========================================
@@ -1704,6 +2023,59 @@ export async function createApp(options: { skipVite?: boolean } = {}) {
     const authorId = req.params.authorId;
     const followers = (db.followers || []).filter((f: any) => f.authorId === authorId);
     res.json({ success: true, count: followers.length, followers });
+  });
+
+  app.get("/api/authors/:authorId/followers", (req: Request, res: Response) => {
+    const db = getDb();
+    const authorId = req.params.authorId;
+    const followers = (db.followers || []).filter((f: any) => f.authorId === authorId);
+    res.json({ success: true, count: followers.length, followers });
+  });
+
+  app.post("/api/authors/:id/follow", requireAuth, (req: Request, res: Response) => {
+    const db = getDb();
+    const authUser = (req as any).user;
+    const authorId = req.params.id;
+
+    if (authUser.id === authorId) {
+      return res.status(400).json({ error: "You cannot follow yourself" });
+    }
+
+    db.followers = db.followers || [];
+    const exists = db.followers.some((f: any) => f.authorId === authorId && f.followerId === authUser.id);
+    if (!exists) {
+      db.followers.push({
+        id: 'fol_' + Date.now(),
+        authorId,
+        followerId: authUser.id,
+        followedAt: new Date().toISOString().split('T')[0]
+      });
+      saveDatabase();
+    }
+    const count = db.followers.filter((f: any) => f.authorId === authorId).length;
+    res.json({ success: true, isFollowing: true, count });
+  });
+
+  app.delete("/api/authors/:id/follow", requireAuth, (req: Request, res: Response) => {
+    const db = getDb();
+    const authUser = (req as any).user;
+    const authorId = req.params.id;
+
+    db.followers = (db.followers || []).filter((f: any) => !(f.authorId === authorId && f.followerId === authUser.id));
+    saveDatabase();
+    const count = db.followers.filter((f: any) => f.authorId === authorId).length;
+    res.json({ success: true, isFollowing: false, count });
+  });
+
+  app.delete("/api/users/:id/follow", requireAuth, (req: Request, res: Response) => {
+    const db = getDb();
+    const authUser = (req as any).user;
+    const authorId = req.params.id;
+
+    db.followers = (db.followers || []).filter((f: any) => !(f.authorId === authorId && f.followerId === authUser.id));
+    saveDatabase();
+    const count = db.followers.filter((f: any) => f.authorId === authorId).length;
+    res.json({ success: true, isFollowing: false, count });
   });
 
   app.post("/api/followers/:authorId/toggle", requireAuth, (req: Request, res: Response) => {
@@ -1738,9 +2110,9 @@ export async function createApp(options: { skipVite?: boolean } = {}) {
   });
 
   // ==========================================
-  // PROFILE AVATAR UPLOADS REST API
+  // PROFILE AVATAR UPLOADS & USER MANAGEMENT REST API
   // ==========================================
-  app.post("/api/profile/upload", requireAuth, avatarUpload.single("avatar") as any, async (req: Request, res: Response) => {
+  const handleAvatarUpload = async (req: Request, res: Response) => {
     try {
       const file = req.file;
       const authUser = (req as any).user;
@@ -1789,7 +2161,8 @@ export async function createApp(options: { skipVite?: boolean } = {}) {
       // Local storage fallback
       if (!avatarUrl) {
         const ext = bufferValidation.format || (file.mimetype.includes('png') ? 'png' : file.mimetype.includes('webp') ? 'webp' : 'jpg');
-        const filename = `avatar_${authUser.id}_${Date.now()}.${ext}`;
+        const targetUserId = req.params.id || authUser.id;
+        const filename = `avatar_${targetUserId}_${Date.now()}.${ext}`;
         const localPath = path.join(avatarsDir, filename);
         fs.writeFileSync(localPath, file.buffer);
         avatarUrl = `/uploads/avatars/${filename}`;
@@ -1798,7 +2171,8 @@ export async function createApp(options: { skipVite?: boolean } = {}) {
 
       // Update user avatar in DB
       const db = getDb();
-      const user = db.users.find((u: any) => u.id === authUser.id);
+      const targetUserId = req.params.id || authUser.id;
+      const user = db.users.find((u: any) => u.id === targetUserId || u.id === authUser.id);
       if (user) {
         user.avatar = avatarUrl;
         user.avatarUrl = avatarUrl;
@@ -1825,19 +2199,157 @@ export async function createApp(options: { skipVite?: boolean } = {}) {
       }
       return res.status(500).json({ error: "Failed to upload image. Please try again." });
     }
+  };
+
+  app.post("/api/profile/upload", requireAuth, avatarUpload.single("avatar") as any, handleAvatarUpload);
+  app.post("/api/users/:id/avatar/upload", requireAuth, avatarUpload.single("avatar") as any, handleAvatarUpload);
+
+  app.delete("/api/users/:id/avatar", requireAuth, (req: Request, res: Response) => {
+    const db = getDb();
+    const authUser = (req as any).user;
+    const targetUserId = req.params.id;
+
+    if (authUser.id !== targetUserId && authUser.role !== 'admin') {
+      return res.status(403).json({ error: "Forbidden: You can only reset your own avatar." });
+    }
+
+    const user = db.users.find((u: any) => u.id === targetUserId);
+    if (!user) return res.status(404).json({ error: "User not found" });
+
+    const defaultAvatar = `https://api.dicebear.com/7.x/bottts/svg?seed=${encodeURIComponent(user.name || 'User')}`;
+    user.avatar = defaultAvatar;
+    user.avatarUrl = defaultAvatar;
+    user.profileImageUrl = defaultAvatar;
+    saveDatabase();
+
+    const { passwordHash: _, salt: __, resetTokenHash: ___, ...safeUser } = user;
+    res.json({ success: true, user: safeUser, avatarUrl: defaultAvatar });
   });
+
+  const handleProfileUpdate = (req: Request, res: Response) => {
+    const authUser = (req as any).user;
+    const targetId = req.params.id || authUser.id;
+    const db = getDb();
+    const user = db.users.find((u: any) => u.id === targetId || u.id === authUser.id);
+    if (!user) {
+      return res.status(404).json({ error: "User not found." });
+    }
+
+    const { name, bio, avatar, twoFactorEnabled } = req.body;
+
+    if (name) user.name = sanitizeHtml(name.trim());
+    if (bio !== undefined) user.bio = sanitizeHtml(bio);
+    if (avatar) {
+      user.avatar = avatar;
+      user.avatarUrl = avatar;
+      user.profileImageUrl = avatar;
+    }
+    if (typeof twoFactorEnabled === 'boolean') user.twoFactorEnabled = twoFactorEnabled;
+
+    saveDatabase();
+    logActivity(user.id, user.name, 'PROFILE_UPDATE', 'প্রোফাইল আপডেট', 'User profile information updated');
+
+    const { passwordHash: _, salt: __, resetTokenHash: ___, ...safeUser } = user;
+    res.json({
+      success: true,
+      user: safeUser
+    });
+  };
+
+  app.put("/api/auth/profile", requireAuth, handleProfileUpdate);
+  app.put("/api/users/:id/profile", requireAuth, handleProfileUpdate);
+  app.post("/api/users/:id/follow", requireAuth, (req: Request, res: Response) => {
+    const db = getDb();
+    const authUser = (req as any).user;
+    const authorId = req.params.id;
+
+    if (authUser.id === authorId) {
+      return res.status(400).json({ error: "You cannot follow yourself" });
+    }
+
+    db.followers = db.followers || [];
+    const idx = db.followers.findIndex((f: any) => f.authorId === authorId && f.followerId === authUser.id);
+    let isFollowing = false;
+
+    if (idx !== -1) {
+      db.followers.splice(idx, 1);
+      isFollowing = false;
+    } else {
+      db.followers.push({
+        id: 'fol_' + Date.now(),
+        authorId,
+        followerId: authUser.id,
+        followedAt: new Date().toISOString().split('T')[0]
+      });
+      isFollowing = true;
+    }
+
+    saveDatabase();
+    const count = db.followers.filter((f: any) => f.authorId === authorId).length;
+    res.json({ success: true, isFollowing, count });
+  });
+
+  // User Role & Status management aliases
+  const handleUserRoleUpdate = (req: Request, res: Response) => {
+    const db = getDb();
+    const target = db.users.find((u: any) => u.id === req.params.id);
+    if (!target) return res.status(404).json({ error: "User not found" });
+
+    const { role } = req.body;
+    if (!['admin', 'editor', 'author', 'reader'].includes(role)) {
+      return res.status(400).json({ error: "Invalid role specified." });
+    }
+
+    if (role === 'admin' && !isEmailAdmin(target.email)) {
+      return res.status(403).json({ error: "Forbidden: Administrator role is restricted to configured ADMIN_EMAIL." });
+    }
+
+    target.role = role;
+    saveDatabase();
+    logActivity('usr_admin', 'Admin', 'USER_ROLE_CHANGE', 'ইউজার রোল পরিবর্তন', `Changed role of ${target.email} to ${role}`);
+
+    const { passwordHash: _, salt: __, resetTokenHash: ___, ...safe } = target;
+    res.json({ success: true, user: safe });
+  };
+
+  const handleUserStatusUpdate = (req: Request, res: Response) => {
+    const db = getDb();
+    const target = db.users.find((u: any) => u.id === req.params.id);
+    if (!target) return res.status(404).json({ error: "User not found" });
+
+    if (isEmailAdmin(target.email)) {
+      return res.status(400).json({ error: "Primary administrator account status cannot be modified." });
+    }
+
+    const { status } = req.body;
+    if (!['active', 'banned'].includes(status)) {
+      return res.status(400).json({ error: "Invalid status" });
+    }
+
+    target.status = status;
+    saveDatabase();
+    logActivity('usr_admin', 'Admin', 'USER_STATUS_CHANGE', 'ইউজার স্ট্যাটাস পরিবর্তন', `${target.email} marked as ${status}`);
+
+    const { passwordHash: _, salt: __, resetTokenHash: ___, ...safe } = target;
+    res.json({ success: true, user: safe });
+  };
+
+  app.put("/api/admin/users/:id/role", requireAdminAuth, handleUserRoleUpdate);
+  app.put("/api/auth/users/:id/role", requireAdminAuth, handleUserRoleUpdate);
+  app.put("/api/admin/users/:id/status", requireAdminAuth, handleUserStatusUpdate);
+  app.put("/api/auth/users/:id/status", requireAdminAuth, handleUserStatusUpdate);
 
   // ==========================================
   // GEMINI AI INTEGRATION REST API
   // ==========================================
-  app.post("/api/ai/write", requireAuthorOrAdmin, async (req: Request, res: Response) => {
+  const handleAiWrite = async (req: Request, res: Response) => {
     try {
       const clientIp = req.ip || '127.0.0.1';
       if (!checkRateLimit(`ai_${clientIp}`, 30, 10 * 60 * 1000)) {
         return res.status(429).json({ error: "AI rate limit exceeded. Please wait a few moments." });
       }
 
-      const { prompt, topic, language = 'bn', tone = 'informative', length = 'medium' } = req.body;
+      const { prompt, topic, language = 'bn', tone = 'informative', length = 'medium', targetLength, keywords } = req.body;
       if (!prompt && !topic) {
         return res.status(400).json({ error: "Prompt or topic is required." });
       }
@@ -1854,9 +2366,10 @@ export async function createApp(options: { skipVite?: boolean } = {}) {
         });
       }
 
-      const lengthInstructions = length === 'short' 
+      const effectiveLength = targetLength || length;
+      const lengthInstructions = effectiveLength === 'short' 
         ? 'প্রায় ৩০০-৪০০ শব্দের সংক্ষিপ্ত পোস্ট।'
-        : length === 'long'
+        : effectiveLength === 'long'
         ? 'প্রায় ১০০০+ শব্দের গভীর বিশ্লেষণমূলক পোস্ট।'
         : 'প্রায় ৬০০-৮০০ শব্দের সুগঠিত পোস্ট।';
 
@@ -1864,11 +2377,16 @@ export async function createApp(options: { skipVite?: boolean } = {}) {
         ? 'সম্পূর্ণ কনটেন্টটি প্রাঞ্জল ও সমৃদ্ধ বাংলা ভাষায় লিখুন।'
         : 'Write the entire content in polished, engaging English.';
 
+      const keywordInstruction = keywords && Array.isArray(keywords) && keywords.length > 0
+        ? `Keywords to naturally include: ${keywords.join(', ')}`
+        : '';
+
       const systemPrompt = `You are an expert professional blog writer for the Blogge publishing platform.
 Write a comprehensive, engaging, SEO-optimized blog post based on the user's topic and specifications.
 Tone: ${tone}.
 Length: ${lengthInstructions}
 Language: ${langInstruction}
+${keywordInstruction}
 
 Return your response in clean JSON matching this exact structure:
 {
@@ -1916,14 +2434,23 @@ Return your response in clean JSON matching this exact structure:
         parsedData.title = sanitizeHtml(parsedData.title);
       }
 
-      return res.json({ success: true, data: parsedData });
+      return res.json({
+        success: true,
+        data: parsedData,
+        ...parsedData,
+        seo: {
+          metaTitle: parsedData.metaTitle || parsedData.title,
+          metaDescription: parsedData.metaDescription || parsedData.summary,
+          keywords: parsedData.tags || []
+        }
+      });
     } catch (err: any) {
       console.error("[AI Write Error]:", err);
       return res.status(500).json({ error: err.message || "Failed to generate content with AI." });
     }
-  });
+  };
 
-  app.post("/api/ai/seo", requireAuthorOrAdmin, async (req: Request, res: Response) => {
+  const handleAiSeo = async (req: Request, res: Response) => {
     try {
       const { title, content } = req.body;
       if (!title) return res.status(400).json({ error: "Title is required for SEO generation." });
@@ -1965,21 +2492,22 @@ Return JSON:
         if (jsonMatch) parsed = JSON.parse(jsonMatch[0]);
       } catch {}
 
-      return res.json({ success: true, data: parsed });
+      return res.json({ success: true, data: parsed, ...parsed });
     } catch (err: any) {
       return res.status(500).json({ error: err.message || "SEO analysis failed." });
     }
-  });
+  };
 
-  app.post("/api/ai/translate", requireAuthorOrAdmin, async (req: Request, res: Response) => {
+  const handleAiTranslate = async (req: Request, res: Response) => {
     try {
-      const { title, content, targetLanguage = 'en' } = req.body;
+      const { title, content, targetLanguage = 'en', targetLang } = req.body;
+      const lang = targetLang || targetLanguage;
       if (!title && !content) return res.status(400).json({ error: "Title or content required." });
 
       const ai = getGenAI();
       if (!ai) return res.status(503).json({ error: "Gemini API key not configured." });
 
-      const prompt = `Translate the following blog post title and HTML content accurately into ${targetLanguage === 'en' ? 'English' : 'Bengali'}.
+      const prompt = `Translate the following blog post title and HTML content accurately into ${lang === 'en' ? 'English' : 'Bengali'}.
 Preserve all HTML tags and formatting intact.
 Title: ${title || ''}
 Content: ${content || ''}
@@ -2005,16 +2533,58 @@ Return JSON:
         parsed.translatedContent = sanitizeHtml(parsed.translatedContent);
       }
 
-      return res.json({ success: true, data: parsed });
+      return res.json({ success: true, data: parsed, ...parsed });
     } catch (err: any) {
       return res.status(500).json({ error: err.message || "Translation failed." });
+    }
+  };
+
+  app.post("/api/ai/write", requireAuthorOrAdmin, handleAiWrite);
+  app.post("/api/gemini/generate-post", requireAuthorOrAdmin, handleAiWrite);
+  app.post("/api/ai/seo", requireAuthorOrAdmin, handleAiSeo);
+  app.post("/api/gemini/seo-suggest", requireAuthorOrAdmin, handleAiSeo);
+  app.post("/api/ai/translate", requireAuthorOrAdmin, handleAiTranslate);
+  app.post("/api/gemini/translate", requireAuthorOrAdmin, handleAiTranslate);
+
+  app.post("/api/gemini/ai-tools", requireAuthorOrAdmin, async (req: Request, res: Response) => {
+    try {
+      const { toolType, input, options } = req.body;
+      if (!input) return res.status(400).json({ error: "Input text is required." });
+
+      const ai = getGenAI();
+      if (!ai) return res.status(503).json({ error: "Gemini API key is not configured on the server." });
+
+      let toolPrompt = `Perform the following AI writing task on this input: ${input}`;
+      if (toolType === 'summarize') {
+        toolPrompt = `Provide a concise, high-impact executive summary (2-3 sentences) of the following text in the same language as input:\n\n${input}`;
+      } else if (toolType === 'headlines') {
+        toolPrompt = `Generate 5 catchy, viral, high-CTR blog headlines based on this text:\n\n${input}`;
+      } else if (toolType === 'simplify') {
+        toolPrompt = `Simplify and rewrite this text in clear, accessible plain language, maintaining the core meaning:\n\n${input}`;
+      } else if (toolType === 'grammar') {
+        toolPrompt = `Proofread, correct all grammar, spelling, and punctuation errors, and improve readability in:\n\n${input}`;
+      } else if (toolType === 'hashtags') {
+        toolPrompt = `Generate 8-12 relevant, high-traffic hashtags for social media promotion from:\n\n${input}`;
+      } else if (toolType === 'expand') {
+        toolPrompt = `Elaborate and expand upon this topic with insightful details, examples, and structured paragraphs:\n\n${input}`;
+      }
+
+      const response = await ai.models.generateContent({
+        model: 'gemini-2.5-flash',
+        contents: [{ role: 'user', parts: [{ text: toolPrompt }] }]
+      });
+
+      const result = response.text || '';
+      return res.json({ success: true, result, output: result });
+    } catch (err: any) {
+      return res.status(500).json({ error: err.message || "AI Tool processing failed." });
     }
   });
 
   // ==========================================
   // AUTHENTICATION REST API
   // ==========================================
-  app.post("/api/auth/register", (req: Request, res: Response) => {
+  app.post(["/api/auth/register", "/api/auth/signup"], (req: Request, res: Response) => {
     const clientIp = req.ip || '127.0.0.1';
     if (!checkRateLimit(`register_${clientIp}`, 10, 15 * 60 * 1000)) {
       return res.status(429).json({ error: "Too many registration attempts. Please try again later." });
@@ -2392,8 +2962,7 @@ Return JSON:
   const apkDownloadHandler = (_req: Request, res: Response) => {
     const candidates = [
       path.join(process.cwd(), 'APK_DOWNLOAD', 'app-debug.apk'),
-      path.join(process.cwd(), 'public', 'app-debug.apk'),
-      path.join(process.cwd(), 'dist', 'app-debug.apk'),
+      path.join(process.cwd(), 'android', 'app', 'build', 'outputs', 'apk', 'debug', 'app-debug.apk'),
       path.join(process.cwd(), '.build-outputs', 'app-debug.apk')
     ];
     for (const filePath of candidates) {
@@ -2432,7 +3001,10 @@ Return JSON:
   if (!options.skipVite) {
     if (process.env.NODE_ENV !== "production") {
       const vite = await createViteServer({
-        server: { middlewareMode: true },
+        server: {
+          middlewareMode: true,
+          hmr: process.env.DISABLE_HMR === 'true' ? false : undefined,
+        },
         appType: "spa",
       });
       app.use(vite.middlewares);
@@ -2450,19 +3022,56 @@ Return JSON:
 
 export async function startServer() {
   const app = await createApp();
-  const PORT = 3000;
-  app.listen(PORT, "0.0.0.0", () => {
-    console.log(`[Blogge Server] Listening on http://localhost:${PORT}`);
+  const PORT = (!process.env.CONTROL_PLANE_PORT && process.env.PORT) 
+    ? (Number(process.env.PORT) || 3000) 
+    : 3000;
+  const server = app.listen(PORT, "0.0.0.0", () => {
+    console.log(`[Blogge Server] Listening on http://0.0.0.0:${PORT}`);
+  });
+
+  server.on('error', (err: NodeJS.ErrnoException) => {
+    if (err.code === 'EADDRINUSE') {
+      console.error(`[Blogge Server] Port ${PORT} is currently in use. Exiting process so supervisor can restart cleanly...`);
+      process.exit(1);
+    } else {
+      console.error("[Blogge Server] Uncaught server error:", err);
+    }
+  });
+
+  // Graceful shutdown on SIGTERM / SIGINT (for Cloud Run container lifecycle)
+  const shutdown = async (signal: string) => {
+    console.log(`[Blogge Server] ${signal} signal received. Initiating graceful shutdown...`);
+    server.close(async () => {
+      console.log('[Blogge Server] HTTP listener stopped.');
+      try {
+        await closePostgresPool();
+      } catch (err) {
+        console.error('[Blogge Server] Error closing database connection pool:', err);
+      }
+      console.log('[Blogge Server] Graceful shutdown complete. Process exiting.');
+      process.exit(0);
+    });
+
+    // Enforce hard exit after 10 seconds if connections fail to close
+    setTimeout(() => {
+      console.error('[Blogge Server] Graceful shutdown timed out after 10s. Forcing exit.');
+      process.exit(1);
+    }, 10000).unref();
+  };
+
+  process.once('SIGTERM', () => shutdown('SIGTERM'));
+  process.once('SIGINT', () => shutdown('SIGINT'));
+
+  return server;
+}
+
+// Auto-start when executed as server (skipped only during test execution)
+const isTestRun = process.env.NODE_ENV === 'test' || 
+  process.argv.some(arg => arg.includes('test') || arg.includes('integration') || arg.includes('security'));
+
+if (!isTestRun) {
+  startServer().catch((err) => {
+    console.error("[Blogge Server] Startup error:", err);
   });
 }
 
-// Auto-start when executed directly as main script
-const scriptPath = process.argv[1] || '';
-const isMain = scriptPath.endsWith('server.ts') || 
-  scriptPath.endsWith('server.cjs') || 
-  scriptPath.endsWith('server.js') ||
-  (process.env.npm_lifecycle_event === 'dev' && !scriptPath.includes('test'));
-
-if (isMain && !scriptPath.includes('test') && !scriptPath.includes('integration')) {
-  startServer();
-}

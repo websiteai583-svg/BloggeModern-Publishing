@@ -17,6 +17,7 @@ import {
   initialCampaigns,
   initialNotifications
 } from '../src/data/initialData';
+import { isPostgresConfigured, initPostgresDatabase, syncPostgresDatabase } from './postgres';
 
 export interface DatabaseSchema {
   users: any[];
@@ -178,6 +179,42 @@ export function initDatabase(): DatabaseSchema {
     console.error('Error initializing database file, using safe in-memory store:', err);
     dbState = getInitialState();
   }
+
+  // If centralized PostgreSQL / Supabase is configured, hydrate state asynchronously
+  if (isPostgresConfigured()) {
+    dbInitPromise = initPostgresDatabase(dbState)
+      .then((remoteState) => {
+        if (remoteState) {
+          dbState = remoteState;
+          console.log('[DB] Synchronized state with centralized PostgreSQL/Supabase database.');
+        }
+        return remoteState;
+      })
+      .catch((pErr) => {
+        console.warn('[DB] Centralized PostgreSQL init warning:', pErr);
+        if (process.env.NODE_ENV === 'production') {
+          throw new Error('[DB FATAL] Failed to connect to PostgreSQL database in production: ' + (pErr?.message || pErr));
+        }
+        return null;
+      });
+  } else {
+    if (process.env.NODE_ENV === 'production') {
+      throw new Error('[DB FATAL] DATABASE_URL is missing in production mode. Ephemeral local JSON storage (/data/db.json) is strictly prohibited on Cloud Run.');
+    }
+  }
+
+  return dbState;
+}
+
+let dbInitPromise: Promise<DatabaseSchema | null> | null = null;
+
+export async function ensureDatabaseReady(): Promise<DatabaseSchema> {
+  if (!dbState) {
+    initDatabase();
+  }
+  if (dbInitPromise) {
+    await dbInitPromise;
+  }
   return dbState;
 }
 
@@ -228,6 +265,11 @@ export function saveDatabase(): void {
   isWriting = true;
   try {
     saveDatabaseSync();
+    if (isPostgresConfigured()) {
+      syncPostgresDatabase(dbState).catch((err) => {
+        console.warn('[DB] PostgreSQL sync error:', err);
+      });
+    }
   } finally {
     isWriting = false;
     if (pendingSave) {

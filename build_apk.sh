@@ -44,7 +44,8 @@ if [ -f "app/build/outputs/apk/debug/app-debug.apk" ]; then
   ls -lh app/build/outputs/apk/debug/app-debug.apk
   cd ..
   mkdir -p /app/applet/public /app/applet/APK_DOWNLOAD /app/applet/.build-outputs
-  cp android/app/build/outputs/apk/debug/app-debug.apk /app/applet/public/app-debug.apk
+  mkdir -p /app/applet/APK_DOWNLOAD
+  cp android/app/build/outputs/apk/debug/app-debug.apk /app/applet/APK_DOWNLOAD/app-debug.apk
   cp android/app/build/outputs/apk/debug/app-debug.apk /app/applet/APK_DOWNLOAD/app-debug.apk
   cp android/app/build/outputs/apk/debug/app-debug.apk /app/applet/.build-outputs/app-debug.apk
 else

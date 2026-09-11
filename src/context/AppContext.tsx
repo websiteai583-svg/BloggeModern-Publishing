@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { 
   Post, 
   Comment, 
@@ -38,13 +38,10 @@ import {
 } from '../data/initialData';
 import { translations, Language } from '../translations';
 import { safeParseStorage, safeSetStorage } from '../utils/storage';
-import { loginWithGoogleFirebase, isFirebaseConfigured, checkRedirectResult } from '../firebase';
-import { safeFetch, resolveApiUrl } from '../utils/safeFetch';
+import { loginWithGoogleFirebase, isFirebaseConfigured, checkRedirectResult, auth } from '../firebase';
+import { safeFetch, resolveApiUrl, getApiBaseUrl, checkApiConnectivity } from '../utils/safeFetch';
 
-export function getApiBaseUrl(): string {
-  // Same-origin production and preview environment
-  return "";
-}
+export { getApiBaseUrl };
 
 export type DashboardTab = 
   | 'home'
@@ -111,7 +108,7 @@ export interface AppContextType {
   currentUser: User | null;
   authToken: string | null;
   allUsers: User[];
-  loginUser: (userOrEmail: User | string, tokenOrRole?: string | User['role']) => void;
+  loginUser: (userOrEmail: User | string, tokenOrRole?: string | User['role']) => void | Promise<void>;
   googleLogin: (customPayload?: { email?: string; name?: string; avatar?: string; idToken?: string }) => Promise<boolean>;
   logoutUser: () => void;
   updateUserProfile: (data: Partial<User>) => Promise<boolean>;
@@ -236,6 +233,11 @@ export interface AppContextType {
   setIsDonationModalOpen: (open: boolean) => void;
   isLiveChatOpen: boolean;
   setIsLiveChatOpen: (open: boolean) => void;
+
+  // Network & Connectivity Status
+  isOnline: boolean;
+  isServerReachable: boolean;
+  retryConnection: () => Promise<void>;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -248,6 +250,47 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [selectedPageSlug, setSelectedPageSlug] = useState<string | null>(null);
   const [editingPostId, setEditingPostId] = useState<string | null>(null);
   const [selectedAuthorId, setSelectedAuthorId] = useState<string | null>(null);
+
+  // Network Connectivity State
+  const [isOnline, setIsOnline] = useState<boolean>(() => {
+    return typeof navigator !== 'undefined' ? navigator.onLine : true;
+  });
+  const [isServerReachable, setIsServerReachable] = useState<boolean>(true);
+
+  const checkConnectivity = useCallback(async () => {
+    const online = typeof navigator !== 'undefined' ? navigator.onLine : true;
+    setIsOnline(online);
+    if (!online) {
+      setIsServerReachable(false);
+      return;
+    }
+    try {
+      const res = await safeFetch.get('/api/health', { skipAuth: true });
+      setIsServerReachable(res.ok);
+    } catch {
+      setIsServerReachable(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    const handleOnline = () => {
+      setIsOnline(true);
+      checkConnectivity();
+    };
+    const handleOffline = () => {
+      setIsOnline(false);
+      setIsServerReachable(false);
+    };
+
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+    checkConnectivity();
+
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  }, [checkConnectivity]);
   
   // Reading List, Likes, Followers
   const [readingList, setReadingList] = useState<ReadingListItem[]>(() => {
@@ -351,31 +394,62 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   // Verify stored session token on initial mount
   useEffect(() => {
-    const token = safeParseStorage<string | null>('blogge_auth_token', null);
-    if (token) {
-      safeFetch.get('/api/auth/me')
-      .then(res => {
-        if (!res.ok) throw new Error('Session invalid');
-        const data = res.data;
-        if (data?.success && data?.user) {
-          setCurrentUser(data.user);
+    const verifyStoredSession = async () => {
+      const token = safeParseStorage<string | null>('blogge_auth_token', null);
+      if (!token) return;
+
+      try {
+        const res = await safeFetch.get('/api/auth/me', {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+
+        if (res.ok && res.data?.success && res.data?.user) {
+          const verifiedUser = res.data.user;
+          setCurrentUser(verifiedUser);
           setAuthToken(token);
-          safeSetStorage('blogge_current_user', data.user);
+          safeSetStorage('blogge_current_user', verifiedUser);
+          if (verifiedUser.role === 'admin') {
+            loadAdminDb(token);
+          }
+        } else if (res.status === 401 || res.status === 403) {
+          // Explicit authentication/authorization failure from server
+          console.warn('[Auth] Stored session expired or invalid (HTTP', res.status, ')');
+          setCurrentUser(null);
+          setAuthToken(null);
+          try {
+            localStorage.removeItem('blogge_auth_token');
+            localStorage.removeItem('blogge_current_user');
+          } catch (e) {
+            console.error(e);
+          }
         } else {
-          throw new Error('User not found');
+          // Network offline (0) or timeout (408) - retain local cached user session!
+          console.warn('[Auth] Network connection unavailable (status:', res.status, '). Retaining offline session.');
         }
-      })
-      .catch(() => {
-        setCurrentUser(null);
-        setAuthToken(null);
-        try {
-          localStorage.removeItem('blogge_auth_token');
-          localStorage.removeItem('blogge_current_user');
-        } catch (e) {
-          console.error(e);
-        }
-      });
-    }
+      } catch (err) {
+        console.warn('[Auth] Session check exception:', err);
+      }
+    };
+
+    verifyStoredSession();
+
+    // Automatically re-verify session when network connectivity is restored
+    const handleOnline = () => {
+      verifyStoredSession();
+    };
+    window.addEventListener('online', handleOnline);
+
+    // Global listener for explicit 401 Unauthorized responses from the server
+    const handleUnauthorized = () => {
+      console.warn('[Auth] Global 401 Unauthorized signal received. Clearing expired session.');
+      setCurrentUser(null);
+      setAuthToken(null);
+      try {
+        localStorage.removeItem('blogge_auth_token');
+        localStorage.removeItem('blogge_current_user');
+      } catch {}
+    };
+    window.addEventListener('blogge:unauthorized', handleUnauthorized);
 
     // Check if user is returning from a Google OAuth redirect flow
     checkRedirectResult().then(async (redirectRes) => {
@@ -388,6 +462,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         });
       }
     }).catch(console.warn);
+
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('blogge:unauthorized', handleUnauthorized);
+    };
   }, []);
 
   // Content
@@ -473,7 +552,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   // Helper to load admin-only database items
   const loadAdminDb = async (token: string) => {
     try {
-      const res = await safeFetch.get('/api/db/init');
+      const res = await safeFetch.get('/api/admin/db');
       if (res.ok && res.data) {
         const result = res.data;
         if (result.success && result.data) {
@@ -501,6 +580,14 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   // Bootstrap data from backend on startup & record session start
   useEffect(() => {
+    // 0. Startup API validation: alert if configured production API is invalid (302 or HTML)
+    checkApiConnectivity(5000).then((conn) => {
+      if (conn.isInvalidApi) {
+        showToast('Production API configuration is invalid.', 'error');
+        console.error('[API Config Error] Production API configuration is invalid. Target:', conn.url);
+      }
+    }).catch(() => {});
+
     // 1. Always load public bootstrap data
     safeFetch.get('/api/bootstrap', { skipAuth: true })
       .then(res => {
@@ -518,11 +605,36 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         console.warn('Public bootstrap sync initialized from fallback store:', err);
       });
 
-    // 2. If already logged in as admin with token, fetch full admin DB
+    // 2. Session Persistence: Verify stored token with backend /api/auth/me
     const token = safeParseStorage<string | null>('blogge_auth_token', null);
-    const user = safeParseStorage<User | null>('blogge_current_user', null);
-    if (token && user?.role === 'admin') {
-      loadAdminDb(token);
+    if (token) {
+      safeFetch.get('/api/auth/me', {
+        headers: { 'Authorization': `Bearer ${token}` }
+      }).then((res) => {
+        if (res.ok && res.data?.success && res.data?.user) {
+          const verifiedUser = res.data.user;
+          setCurrentUser(verifiedUser);
+          setAuthToken(token);
+          safeSetStorage('blogge_current_user', verifiedUser);
+          if (verifiedUser.role === 'admin') {
+            loadAdminDb(token);
+          }
+        } else if (res.status === 401 || res.status === 403) {
+          // Token is explicitly invalid or revoked: clear session & show public UI
+          console.warn('[Auth] Stored session rejected by server (HTTP', res.status, '). Clearing session.');
+          setCurrentUser(null);
+          setAuthToken(null);
+          try {
+            localStorage.removeItem('blogge_auth_token');
+            localStorage.removeItem('blogge_current_user');
+          } catch {}
+        } else {
+          // Network offline, timeout, or temporary server error: NEVER delete cached session!
+          console.warn('[Auth] Server unavailable during bootstrap check (status:', res.status, '). Retaining cached user session.');
+        }
+      }).catch((err) => {
+        console.warn('[Auth] Offline during session verification, keeping cached session:', err);
+      });
     }
 
     // 3. Track session start with a unique session ID
@@ -712,7 +824,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   };
 
   // Auth Operations
-  const loginUser = (userOrEmail: User | string, tokenOrRole?: string | User['role']) => {
+  const loginUser = async (userOrEmail: User | string, tokenOrRole?: string | User['role']): Promise<void> => {
     let user: User;
     let token: string | null = null;
 
@@ -752,6 +864,33 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       }
       return [...prev, user];
     });
+
+    if (user.role === 'admin') {
+      setViewMode('dashboard');
+      setDashboardTab('home');
+      if (token) {
+        loadAdminDb(token);
+      }
+    }
+
+    // Complete required verification flow: /api/auth/me
+    if (token) {
+      try {
+        const res = await safeFetch.get('/api/auth/me', {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        if (res.ok && res.data?.success && res.data?.user) {
+          const verifiedUser = res.data.user;
+          setCurrentUser(verifiedUser);
+          safeSetStorage('blogge_current_user', verifiedUser);
+          if (verifiedUser.role === 'admin') {
+            loadAdminDb(token);
+          }
+        }
+      } catch (err) {
+        console.warn('[Auth] /api/auth/me verification note:', err);
+      }
+    }
 
     showToast(language === 'bn' ? `স্বাগতম, ${user.name}!` : `Welcome back, ${user.name}!`);
   };
@@ -794,6 +933,23 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       if (data.token) {
         setAuthToken(data.token);
         safeSetStorage('blogge_auth_token', data.token);
+
+        // Verification with /api/auth/me
+        try {
+          const meRes = await safeFetch.get('/api/auth/me', {
+            headers: { Authorization: `Bearer ${data.token}` }
+          });
+          if (meRes.ok && meRes.data?.success && meRes.data?.user) {
+            const verified = meRes.data.user;
+            setCurrentUser(verified);
+            safeSetStorage('blogge_current_user', verified);
+            if (verified.role === 'admin') {
+              loadAdminDb(data.token);
+            }
+          }
+        } catch {
+          // Keep safeUser
+        }
       }
 
       setAllUsers((prev) => {
@@ -826,6 +982,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       localStorage.removeItem('blogge_auth_token');
     } catch (e) {
       console.error(e);
+    }
+    if (auth && typeof auth.signOut === 'function') {
+      auth.signOut().catch(() => {});
     }
     showToast(language === 'bn' ? 'সফলভাবে লগআউট হয়েছে' : 'Logged out successfully', 'info');
   };
@@ -928,28 +1087,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
 
     // 3. Pre-upload Diagnostic Check on /api/runtime
-    const apiBase = getApiBaseUrl();
     try {
-      const runtimeEndpoint = `${apiBase}/api/runtime`;
-      const runtimeRes = await fetch(runtimeEndpoint);
-      const runtimeContentType = runtimeRes.headers.get('content-type') || '';
-      const runtimeXBlogge = runtimeRes.headers.get('x-blogge-api') || runtimeRes.headers.get('X-Blogge-API') || '';
-
+      const runtimeRes = await safeFetch.get('/api/runtime', { timeoutMs: 4000 });
       console.log('[API RUNTIME CHECK]', {
-        'REQUEST URL': runtimeEndpoint,
-        'RESPONSE URL': runtimeRes.url,
-        'HTTP STATUS': runtimeRes.status,
-        'CONTENT-TYPE': runtimeContentType,
-        'X-Blogge-API': runtimeXBlogge
+        'OK': runtimeRes.ok,
+        'STATUS': runtimeRes.status,
+        'DATA': runtimeRes.data
       });
-
-      if (runtimeContentType.includes('text/html')) {
-        const routingError = language === 'bn'
-          ? `Frontend is not reaching the Blogge API server. (রিকোয়েস্ট URL: ${runtimeEndpoint}, রেসপন্স: ${runtimeRes.url}, স্ট্যাটাস: ${runtimeRes.status}, Content-Type: ${runtimeContentType})`
-          : `Frontend is not reaching the Blogge API server. (Request: ${runtimeEndpoint}, Response: ${runtimeRes.url}, Status: ${runtimeRes.status}, Content-Type: ${runtimeContentType})`;
-        showToast(routingError, 'error');
-        return { success: false, error: routingError };
-      }
     } catch (diagErr) {
       console.warn('[UPLOAD DEBUG /api/runtime check failed]', diagErr);
     }
@@ -970,7 +1114,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           // Append raw file directly to ensure valid magic bytes and mime boundaries
           formData.append('avatar', file, fileName);
 
-          const uploadEndpoint = `${apiBase}/api/users/${encodeURIComponent(targetUserId)}/avatar/upload`;
+          const uploadEndpoint = resolveApiUrl(`/api/users/${encodeURIComponent(targetUserId)}/avatar/upload`);
 
           console.log('[UPLOAD DEBUG]', {
             'window.location.origin': typeof window !== 'undefined' ? window.location.origin : '',
@@ -1778,8 +1922,27 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
   };
 
-  const exportSubscribers = () => {
-    window.location.href = '/api/subscribers/export';
+  const exportSubscribers = async () => {
+    try {
+      const res = await safeFetch.get('/api/subscribers/export');
+      if (!res.ok || !res.data) {
+        showToast(language === 'bn' ? 'সাবস্ক্রাইবার তালিকা এক্সপোর্ট ব্যর্থ হয়েছে' : 'Failed to export subscribers', 'error');
+        return;
+      }
+      const csvContent = typeof res.data === 'string' ? res.data : JSON.stringify(res.data);
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `blogge-subscribers-${Date.now()}.csv`;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+      showToast(language === 'bn' ? 'সাবস্ক্রাইবার ফাইল ডাউনলোড হয়েছে' : 'Subscribers CSV downloaded!');
+    } catch {
+      showToast(language === 'bn' ? 'এক্সপোর্টে সমস্যা হয়েছে' : 'Export failed', 'error');
+    }
   };
 
   // Donations & Payments
@@ -1868,25 +2031,14 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const exportJsonBackup = async () => {
     try {
-      const token = (await getValidAuthToken()) || safeParseStorage<string | null>('blogge_auth_token', null);
-      if (!token) {
-        showToast(language === 'bn' ? 'ব্যাকআপ ডাউনলোডের জন্য অ্যাডমিন লগইন প্রয়োজন' : 'Admin login required to export backup', 'error');
+      const res = await safeFetch.get('/api/export/backup');
+      if (!res.ok || !res.data) {
+        showToast(res.error || (language === 'bn' ? 'ব্যাকআপ তৈরিতে সমস্যা হয়েছে' : 'Failed to export backup'), 'error');
         return;
       }
 
-      const res = await fetch('/api/export/backup', {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-
-      if (!res.ok) {
-        const errJson = await res.json().catch(() => ({ error: 'Backup export failed' }));
-        showToast(errJson.error || 'Failed to export backup', 'error');
-        return;
-      }
-
-      const blob = await res.blob();
+      const backupData = typeof res.data === 'string' ? res.data : JSON.stringify(res.data, null, 2);
+      const blob = new Blob([backupData], { type: 'application/json' });
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
@@ -1943,9 +2095,28 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }).catch(console.error);
   };
 
+  const retryConnection = async () => {
+    await checkConnectivity();
+    try {
+      const res = await safeFetch.get('/api/bootstrap', { skipAuth: true });
+      if (res.ok && res.data?.success && res.data?.data) {
+        const d = res.data.data;
+        if (d.posts && d.posts.length > 0) setPosts(d.posts);
+        if (d.pages && d.pages.length > 0) setPages(d.pages);
+        if (d.widgets && d.widgets.length > 0) setWidgets(d.widgets);
+        if (d.settings) setSettings(prev => ({ ...prev, ...d.settings }));
+        if (d.themes && d.themes.length > 0) setThemes(d.themes);
+        if (d.analytics) setAnalytics(d.analytics);
+      }
+    } catch {}
+  };
+
   return (
     <AppContext.Provider
       value={{
+        isOnline,
+        isServerReachable,
+        retryConnection,
         viewMode,
         setViewMode,
         dashboardTab,

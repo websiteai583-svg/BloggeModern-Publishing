@@ -44,7 +44,8 @@ if [ -f "/app/applet/android/app/build/outputs/apk/debug/app-debug.apk" ]; then
   echo "APK BUILD SUCCESS!"
   ls -lh /app/applet/android/app/build/outputs/apk/debug/app-debug.apk
   mkdir -p /app/applet/public
-  cp /app/applet/android/app/build/outputs/apk/debug/app-debug.apk /app/applet/public/app-debug.apk
+  mkdir -p /app/applet/APK_DOWNLOAD
+  cp /app/applet/android/app/build/outputs/apk/debug/app-debug.apk /app/applet/APK_DOWNLOAD/app-debug.apk
 else
   echo "ERROR: APK file not found!"
   exit 1

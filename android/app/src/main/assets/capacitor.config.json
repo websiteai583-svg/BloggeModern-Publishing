@@ -3,9 +3,8 @@
 	"appName": "Blogge",
 	"webDir": "dist",
 	"server": {
-		"url": "https://ais-pre-pzbpjh4puhyyswictfxr55-469359533093.asia-southeast1.run.app",
 		"androidScheme": "https",
-		"cleartext": false
+		"cleartext": true
 	},
 	"plugins": {
 		"SplashScreen": {

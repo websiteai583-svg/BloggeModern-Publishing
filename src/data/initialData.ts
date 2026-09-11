@@ -5,7 +5,7 @@ export const initialUsers: User[] = [
     id: 'usr_1787561633296',
     name: 'Sohelmolla admin',
     email: 'websiteai583@gmail.com',
-    avatar: '/uploads/avatars/admin_avatar.jpg',
+    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
     bio: 'ব্লগারের প্রতিষ্ঠাতা, চিফ অ্যাডমিনিস্ট্রেটর ও টেক উৎসাহী।',
     role: 'admin',
     twoFactorEnabled: false,

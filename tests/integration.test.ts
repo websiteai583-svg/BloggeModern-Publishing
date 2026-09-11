@@ -126,33 +126,94 @@ async function runSuite() {
     assert(apkRes.status === 200 && apkRes.headers['content-type'] === 'application/vnd.android.package-archive', 'GET /APK_DOWNLOAD/app-debug.apk serves valid Android APK');
 
     // -------------------------------------------------------------
-    // 2. AUTHENTICATION (REGISTER & LOGIN) HTTP INTEGRATION
+    // 1b. CAPACITOR ANDROID CORS & NATIVE ORIGIN VERIFICATION
     // -------------------------------------------------------------
-    console.log('\n--- 2. User Registration & Login HTTP Pipeline ---');
+    console.log('\n--- 1b. Capacitor Android CORS & Native Origin Verification ---');
+    
+    // Test Android WebView origin (https://localhost) preflight OPTIONS
+    const corsOptionsRes = await makeHttpRequest(server, {
+      method: 'OPTIONS',
+      path: '/api/auth/login',
+      headers: {
+        Origin: 'https://localhost',
+        'Access-Control-Request-Method': 'POST',
+        'Access-Control-Request-Headers': 'Content-Type, Authorization'
+      }
+    });
+    assert(corsOptionsRes.status === 204, 'OPTIONS /api/auth/login with Origin: https://localhost responds with 204 No Content');
+    assert(corsOptionsRes.headers['access-control-allow-origin'] === 'https://localhost', 'CORS preflight reflects Origin: https://localhost');
+    assert(corsOptionsRes.headers['access-control-allow-credentials'] === 'true', 'CORS preflight sets Access-Control-Allow-Credentials: true');
+
+    // Test Capacitor protocol origin (capacitor://localhost)
+    const capOptionsRes = await makeHttpRequest(server, {
+      method: 'OPTIONS',
+      path: '/api/auth/login',
+      headers: {
+        Origin: 'capacitor://localhost',
+        'Access-Control-Request-Method': 'POST',
+        'Access-Control-Request-Headers': 'Content-Type, Authorization'
+      }
+    });
+    assert(capOptionsRes.status === 204 && capOptionsRes.headers['access-control-allow-origin'] === 'capacitor://localhost', 'CORS preflight allows capacitor://localhost');
+
+    // -------------------------------------------------------------
+    // 2. AUTHENTICATION (REGISTER, LOGIN, & PERSISTENCE) HTTP INTEGRATION
+    // -------------------------------------------------------------
+    console.log('\n--- 2. User Registration, Login & Session Pipeline (TEST A, B, D) ---');
+    
+    // TEST B: Sign Up + auto-login (returns valid token & user)
     const uniqueEmail = `integration_author_${Date.now()}@example.com`;
     const regRes = await makeHttpRequest(server, {
       method: 'POST',
       path: '/api/auth/register',
+      headers: { Origin: 'https://localhost' },
       body: {
         name: 'Integration Author',
         email: uniqueEmail,
         password: 'Password123!'
       }
     });
-    assert(regRes.status === 201 && !!regRes.body.token, 'POST /api/auth/register creates user and returns JWT session token');
+    assert(regRes.status === 201 && !!regRes.body.token && regRes.body.user.email === uniqueEmail, 'TEST B [PASS]: POST /api/auth/register creates user and returns JWT session token for auto-login');
+    assert(regRes.headers['access-control-allow-origin'] === 'https://localhost', 'Register response sends Access-Control-Allow-Origin: https://localhost to Android WebView');
     const authorToken = regRes.body.token;
     const authorId = regRes.body.user.id;
 
-    // Login with valid credentials
+    // Verify /api/auth/signup alias behaves identically
+    const signupEmail = `integration_signup_${Date.now()}@example.com`;
+    const signupRes = await makeHttpRequest(server, {
+      method: 'POST',
+      path: '/api/auth/signup',
+      headers: { Origin: 'https://localhost' },
+      body: {
+        name: 'Signup Test User',
+        email: signupEmail,
+        password: 'Password123!'
+      }
+    });
+    assert(signupRes.status === 201 && !!signupRes.body.token && signupRes.body.user.email === signupEmail, 'POST /api/auth/signup alias succeeds and creates user');
+
+    // TEST A: Email/Password login + session token issuance
     const loginRes = await makeHttpRequest(server, {
       method: 'POST',
       path: '/api/auth/login',
+      headers: { Origin: 'https://localhost' },
       body: {
         email: uniqueEmail,
         password: 'Password123!'
       }
     });
-    assert(loginRes.status === 200 && !!loginRes.body.token, 'POST /api/auth/login succeeds with valid credentials');
+    assert(loginRes.status === 200 && !!loginRes.body.token && loginRes.body.user.id === authorId, 'TEST A [PASS]: POST /api/auth/login succeeds with valid credentials and returns session token');
+
+    // TEST D: Session persistence across app restarts (GET /api/auth/me)
+    const meRes = await makeHttpRequest(server, {
+      method: 'GET',
+      path: '/api/auth/me',
+      headers: {
+        Origin: 'https://localhost',
+        Authorization: `Bearer ${loginRes.body.token}`
+      }
+    });
+    assert(meRes.status === 200 && meRes.body.success === true && meRes.body.user.id === authorId, 'TEST D [PASS]: GET /api/auth/me verifies persisted session token across restarts');
 
     // Login with invalid credentials
     const badLoginRes = await makeHttpRequest(server, {
@@ -175,22 +236,25 @@ async function runSuite() {
     }
 
     // -------------------------------------------------------------
-    // 3. POST /api/auth/google INTEGRATION
+    // 3. POST /api/auth/google INTEGRATION (TEST C)
     // -------------------------------------------------------------
-    console.log('\n--- 3. Google Auth Endpoint (POST /api/auth/google) ---');
+    console.log('\n--- 3. Google Auth Endpoint (POST /api/auth/google) (TEST C) ---');
     const emptyGoogleRes = await makeHttpRequest(server, {
       method: 'POST',
       path: '/api/auth/google',
+      headers: { Origin: 'https://localhost' },
       body: {}
     });
-    assert(emptyGoogleRes.status === 400, 'POST /api/auth/google rejects empty body with 400 Bad Request');
+    assert(emptyGoogleRes.status === 400, 'TEST C [PASS]: POST /api/auth/google rejects empty body with 400 Bad Request');
 
     const fakeTokenGoogleRes = await makeHttpRequest(server, {
       method: 'POST',
       path: '/api/auth/google',
+      headers: { Origin: 'https://localhost' },
       body: { idToken: 'invalid_malformed_token_header_payload_signature' }
     });
-    assert(fakeTokenGoogleRes.status === 401, 'POST /api/auth/google rejects invalid / unsigned token with 401 Unauthorized');
+    assert(fakeTokenGoogleRes.status === 401, 'TEST C [PASS]: POST /api/auth/google rejects unverified token with 401 Unauthorized');
+    assert(fakeTokenGoogleRes.headers['access-control-allow-origin'] === 'https://localhost', 'TEST C [PASS]: Google auth endpoint returns CORS headers to Android origin');
 
     // -------------------------------------------------------------
     // 4. FORGOT & RESET PASSWORD HTTP FLOW
